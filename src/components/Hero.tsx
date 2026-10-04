@@ -201,10 +201,10 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter: قسم الكروت يطفو بعلو أكبر في الثلث السفلي للهيرو
+   2. نموذج MediCenter: شريط الأرقام يطفو مباشرة فوق الكروت الثلاثة العائمة
    - Section A: Spacious High-Aspect Hero Slider (h-[540px] to h-[680px])
-   - Section B: Connected Numbers Bar
-   - Section C: 3 Home Boxes floating high up into the lower 1/3 (-mt-24 to -mt-40)
+   - Section B: Unified Floating Block (Numbers Bar on top + 3 Cards directly below)
+   - Same high elevation into the lower 1/3 of the Hero (-mt-24 to -mt-40)
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -260,7 +260,7 @@ function HeroModelMedicenter() {
   return (
     <div className="w-full font-sans selection:bg-[#42B3E5] selection:text-white bg-white">
       {/* =========================================================================
-         SECTION A: HERO SLIDER STAGE (Spacious upper 2/3 for content)
+         SECTION A: HERO SLIDER STAGE (Spacious upper area for content)
       ========================================================================= */}
       <section
         className="relative w-full overflow-hidden bg-[#0c1628] h-[540px] sm:h-[600px] lg:h-[680px] flex items-center"
@@ -288,7 +288,7 @@ function HeroModelMedicenter() {
           </div>
         ))}
 
-        {/* Foreground Slider Content (Comfortably situated in upper 2/3) */}
+        {/* Foreground Slider Content */}
         <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-6 sm:px-10 lg:px-14 pb-28 sm:pb-36 lg:pb-44">
           <div className="max-w-[720px]">
             {/* Tag Badge */}
@@ -351,42 +351,39 @@ function HeroModelMedicenter() {
       </section>
 
       {/* =========================================================================
-         SECTION B: INTERACTIVE NUMBERS NAVIGATION BAR
-      ========================================================================= */}
-      <div className="relative z-20 w-full bg-white border-y border-gray-200 shadow-sm">
-        <div className="grid grid-cols-3 w-full">
-          {MEDICENTER_SLIDES.map((s, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-              className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-6 py-2.5 sm:py-3 text-right transition-all border-e border-gray-200 last:border-e-0 ${
-                i === index
-                  ? "bg-sky-50/60 text-[#111e38]"
-                  : "bg-white text-gray-600 hover:text-[#0384CE] hover:bg-gray-50/80"
-              }`}
-            >
-              {/* Active top indicator bar */}
-              {i === index && (
-                <span className="absolute top-0 inset-x-0 h-[3px] bg-[#42B3E5]" />
-              )}
-              <span className="font-mono text-[12px] sm:text-[14px] font-black text-[#42B3E5] tracking-tighter">
-                0{i + 1}
-              </span>
-              <span className="hidden sm:inline-block text-[11.5px] sm:text-[13px] font-bold truncate text-[#111e38] tracking-tight">
-                {s.titleLine1}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* =========================================================================
-         SECTION C: THE 3 HOME BOXES FLOATING HIGHER UP INTO THE LOWER 1/3 (-mt-24 sm:-mt-32 lg:-mt-40)
+         SECTION B: UNIFIED FLOATING UNIT (Interactive Numbers Bar Floating Directly on Top of the 3 Cards)
+         Maintaining the exact same high elevation (-mt-24 sm:-mt-32 lg:-mt-40)
       ========================================================================= */}
       <section className="relative z-30 -mt-24 sm:-mt-32 lg:-mt-40 px-3 sm:px-6 lg:px-12 pb-10 sm:pb-14 bg-transparent">
-        <div className="mx-auto max-w-[1240px] shadow-[0_25px_60px_rgba(0,0,0,0.28)] rounded-md overflow-hidden ring-1 ring-black/5">
-          {/* Responsive Grid: 1 column on Mobile, 3 columns on Tablet & Desktop */}
+        <div className="mx-auto max-w-[1240px] shadow-[0_25px_60px_rgba(0,0,0,0.28)] rounded-md overflow-hidden ring-1 ring-black/5 bg-white">
+          {/* Top Interactive Numbers Tabs (Floating directly on top of the 3 Cards) */}
+          <div className="grid grid-cols-3 w-full bg-white border-b border-gray-200">
+            {MEDICENTER_SLIDES.map((s, i) => (
+              <button
+                key={i}
+                onClick={() => go(i)}
+                aria-label={`الانتقال إلى الشريحة ${i + 1}`}
+                className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-6 py-2.5 sm:py-3.5 text-right transition-all border-e border-gray-200 last:border-e-0 ${
+                  i === index
+                    ? "bg-sky-50/70 text-[#111e38]"
+                    : "bg-white text-gray-600 hover:text-[#0384CE] hover:bg-gray-50/80"
+                }`}
+              >
+                {/* Active indicator bar */}
+                {i === index && (
+                  <span className="absolute top-0 inset-x-0 h-[3px] bg-[#42B3E5]" />
+                )}
+                <span className="font-mono text-[12px] sm:text-[14px] font-black text-[#42B3E5] tracking-tighter">
+                  0{i + 1}
+                </span>
+                <span className="hidden sm:inline-block text-[11.5px] sm:text-[13px] font-bold truncate text-[#111e38] tracking-tight">
+                  {s.titleLine1}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* The 3 Connected Home Boxes (Directly below the Numbers Bar) */}
           <div className="grid grid-cols-1 md:grid-cols-3">
             {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
             <div className="flex flex-col justify-between bg-[#42B3E5] px-6 sm:px-7 lg:px-8 py-7 sm:py-8 text-white transition-colors duration-300 hover:brightness-105">
@@ -444,7 +441,7 @@ function HeroModelMedicenter() {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/20">
+              <div className="mt-4 pt-3 border-t border-white/20">
                 <div className="flex items-center justify-between">
                   <span className="text-[13px] text-white/95 font-bold">
                     فحص استرشادي في دقيقتين
