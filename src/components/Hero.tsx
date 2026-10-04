@@ -201,11 +201,11 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (Full Complete Image Visibility)
-   - Images appear 100% fully visible without cropping on desktop and mobile
-   - Ambient blurred background fill + full-aspect central image
-   - Slide tabs (01, 02, 03) span the FULL width with micro typography
-   - 3 Bottom Home Boxes float centered over the background image
+   2. نموذج MediCenter الطبي الكلاسيكي (Full Dimension 16:9 Slider + Complete Image Display)
+   - The slide image section maintains its full complete natural dimensions on Mobile & Desktop
+   - 100% full uncropped image visible edge-to-edge
+   - Full-width slide numbers navigation bar with micro font
+   - 3 Bottom Home Boxes float cleanly centered without stretching or cropping the photo
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -260,108 +260,94 @@ function HeroModelMedicenter() {
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#0c1628] font-sans selection:bg-[#42B3E5] selection:text-white min-h-[640px] lg:min-h-[680px] flex flex-col justify-between"
+      className="relative w-full bg-[#0d172a] font-sans selection:bg-[#42B3E5] selection:text-white"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
-      {/* 1. FULL-VISIBILITY BACKGROUND SLIDE IMAGES (Complete Image Shown on Desktop & Mobile) */}
-      <div className="absolute inset-0 z-0 h-full w-full pointer-events-none overflow-hidden">
+      {/* 1. SLIDER STAGE WITH FULL NATURAL DIMENSIONS (Preserves Complete Uncropped Image on Mobile & Desktop) */}
+      <div className="relative w-full overflow-hidden aspect-[16/11] sm:aspect-[16/9] md:aspect-[21/10] lg:min-h-[520px] lg:max-h-[580px] flex items-center bg-[#0c1628]">
+        {/* All Slide Images */}
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
             key={s.img}
             className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ease-in-out ${
-              i === index ? "opacity-100" : "opacity-0"
+              i === index ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            {/* Layer A: Ambient blurred background fill to prevent any empty letterboxing */}
+            {/* The Image Rendered in Full Dimensions Without Cropping */}
             <img
               src={s.img}
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover object-center scale-110 blur-xl opacity-35 brightness-75"
-              aria-hidden="true"
+              alt={s.titleLine1}
+              className="h-full w-full object-cover object-center"
+              loading={i === 0 ? "eager" : "lazy"}
             />
-
-            {/* Layer B: The Full Uncropped Image (Fully visible in true aspect ratio on both desktop & mobile) */}
-            <div className="relative h-full w-full flex items-center justify-center sm:justify-end">
-              <img
-                src={s.img}
-                alt=""
-                className="h-full w-full object-contain sm:object-cover sm:object-right-top lg:object-cover lg:object-center brightness-100 transition-transform duration-700"
-                loading={i === 0 ? "eager" : "lazy"}
-              />
-            </div>
-
-            {/* Layer C: Uniform Consistent Shading */}
-            <div className="absolute inset-0 bg-[#0c1628]/55" />
+            {/* 100% Full-surface uniform shading */}
+            <div className="absolute inset-0 bg-[#0c1628]/60" />
           </div>
         ))}
-      </div>
 
-      {/* 2. FOREGROUND CONTENT: Slide Text Content */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-4">
-        <div className="max-w-[720px]">
-          {/* Tag Badge */}
-          <div className="inline-block bg-[#42B3E5] px-3 py-0.5 text-[11px] font-black tracking-wider text-white shadow-md uppercase">
-            صله تون — حلول السمع الطبية منذ 2014
-          </div>
+        {/* Foreground Content Box (Classic MediCenter Slider Content) */}
+        <div className="relative z-10 mx-auto w-full max-w-[1370px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="max-w-[700px] bg-black/35 backdrop-blur-xs p-4 sm:p-7 rounded-sm border-s-4 border-[#42B3E5]">
+            {/* Tag Badge */}
+            <div className="inline-block bg-[#42B3E5] px-2.5 py-0.5 text-[10px] sm:text-[11px] font-black tracking-wider text-white uppercase shadow-sm">
+              صله تون — حلول السمع الطبية منذ 2014
+            </div>
 
-          {/* Main Title */}
-          <h1
-            className="mt-3.5 text-[28px] sm:text-[38px] lg:text-[46px] font-black leading-[1.2] text-white tracking-tight drop-shadow-md"
-          >
-            <span className="block">{current.titleLine1}</span>
-            <span className="block text-[#42B3E5] drop-shadow-md">
-              {current.titleLine2}
-            </span>
-          </h1>
+            {/* Main Title */}
+            <h1 className="mt-2.5 sm:mt-3.5 text-[22px] sm:text-[34px] lg:text-[44px] font-black leading-[1.25] text-white tracking-tight drop-shadow-md">
+              <span className="block">{current.titleLine1}</span>
+              <span className="block text-[#42B3E5] drop-shadow-md">
+                {current.titleLine2}
+              </span>
+            </h1>
 
-          {/* Subtitle */}
-          <p
-            className="mt-3.5 max-w-[580px] text-[14.5px] sm:text-[16.5px] leading-[1.8] text-white/95 font-medium drop-shadow-md"
-          >
-            {current.subtitle}
-          </p>
+            {/* Subtitle */}
+            <p className="mt-2 sm:mt-3 max-w-[560px] text-[13px] sm:text-[15.5px] leading-[1.7] text-white/95 font-medium drop-shadow-sm line-clamp-3 sm:line-clamp-none">
+              {current.subtitle}
+            </p>
 
-          {/* Action Buttons */}
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <a
-              href={current.ctaHref}
-              target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
-              rel={current.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center gap-2 bg-[#42B3E5] px-6 py-3 text-[14.5px] font-extrabold text-white shadow-xl transition-all hover:bg-white hover:text-[#3156A3]"
-            >
-              {current.ctaText} <IconArrow width={16} height={16} />
-            </a>
-            <a
-              href={current.cta2Href}
-              target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
-              rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center gap-2 border-2 border-white bg-black/25 backdrop-blur-xs px-6 py-2.5 text-[14.5px] font-extrabold text-white shadow-lg transition-all hover:bg-white hover:text-[#1a2e51]"
-            >
-              {current.cta2Text}
-            </a>
+            {/* Action Buttons */}
+            <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3">
+              <a
+                href={current.ctaHref}
+                target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
+                rel={current.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="inline-flex items-center gap-2 bg-[#42B3E5] px-4 sm:px-6 py-2 sm:py-2.5 text-[13px] sm:text-[14.5px] font-extrabold text-white shadow-lg transition-all hover:bg-white hover:text-[#3156A3]"
+              >
+                {current.ctaText} <IconArrow width={15} height={15} />
+              </a>
+              <a
+                href={current.cta2Href}
+                target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
+                rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="inline-flex items-center gap-2 border border-white/80 bg-black/30 px-3.5 sm:px-5 py-2 sm:py-2.5 text-[13px] sm:text-[14px] font-bold text-white shadow-md transition-all hover:bg-white hover:text-[#1a2e51]"
+              >
+                {current.cta2Text}
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 3. MIDDLE: FULL-WIDTH NUMBERED NAVIGATION TABS (Micro Typography) */}
-      <div className="relative z-10 w-full bg-black/45 backdrop-blur-md border-y border-white/15">
+      {/* 2. FULL-WIDTH NUMBERED NAVIGATION TABS (Micro Typography) */}
+      <div className="relative z-10 w-full bg-[#0a1220] border-y border-white/15">
         <div className="grid grid-cols-3 w-full">
           {MEDICENTER_SLIDES.map((s, i) => (
             <button
               key={i}
               onClick={() => go(i)}
               aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-              className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-5 py-1.5 sm:py-2 text-right transition-all border-e border-white/10 last:border-e-0 ${
+              className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-5 py-2 text-right transition-all border-e border-white/10 last:border-e-0 ${
                 i === index
-                  ? "bg-white/20 text-white"
-                  : "text-white/70 hover:text-white hover:bg-white/10"
+                  ? "bg-[#42B3E5]/20 text-white"
+                  : "text-white/70 hover:text-white hover:bg-white/5"
               }`}
             >
               {/* Active indicator micro bar */}
               {i === index && (
-                <span className="absolute top-0 inset-x-0 h-[2px] bg-[#42B3E5]" />
+                <span className="absolute top-0 inset-x-0 h-[2.5px] bg-[#42B3E5]" />
               )}
               <span className="font-mono text-[11px] sm:text-[12px] font-black text-[#42B3E5] tracking-tighter">
                 0{i + 1}
@@ -374,8 +360,8 @@ function HeroModelMedicenter() {
         </div>
       </div>
 
-      {/* 4. BOTTOM AREA: SIGNATURE 3 MEDICENTER HOME BOXES (Centered Floating Cards) */}
-      <div className="relative z-10 w-full px-3 sm:px-6 lg:px-12 pt-4 pb-6 lg:pb-8">
+      {/* 3. SIGNATURE 3 MEDICENTER HOME BOXES (Centered Floating Cards Below Slider) */}
+      <div className="relative z-10 w-full px-3 sm:px-6 lg:px-12 py-6 lg:py-8 bg-[#0c1628]">
         <div className="mx-auto max-w-[1180px] shadow-2xl rounded-md overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-3">
             {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
