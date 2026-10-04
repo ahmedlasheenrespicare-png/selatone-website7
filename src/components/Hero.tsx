@@ -201,8 +201,9 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (Bright Crisp Clear Background Images)
-   - Background images are 100% bright, unshaded, and crystal clear
+   2. نموذج MediCenter الطبي الكلاسيكي (Clean Direct Text Over Bright Images)
+   - Text sits directly on the bright image without dark box shading
+   - Clean, crisp MediCenter typography with subtle text shadows
    - Slide tabs (01, 02, 03) span the FULL width of the hero from edge to edge
    - 3 Bottom Home Boxes centered with margins (< Hero full width)
    - Matches the total height of HeroOriginal (min-h-[580px])
@@ -265,9 +266,9 @@ function HeroModelMedicenter() {
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
-      {/* 1. FULL-WIDTH SLIDER (Clear & Bright Background Images) */}
+      {/* 1. FULL-WIDTH SLIDER (Clean Text directly on Bright Image) */}
       <div className="relative w-full h-[390px] sm:h-[410px] lg:h-[400px] overflow-hidden bg-slate-900">
-        {/* Background Slide Images with Crisp Clarity and Zero Dark Masking */}
+        {/* Background Slide Images with Crisp Clarity and 0 Heavy Overlay */}
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
             key={s.img}
@@ -281,41 +282,45 @@ function HeroModelMedicenter() {
               className="h-full w-full object-cover object-center filter-none brightness-100 contrast-105"
               loading={i === 0 ? "eager" : "lazy"}
             />
+            {/* Very soft feather gradient only behind text for crisp readability without darkening image */}
+            <div className="absolute inset-y-0 start-0 w-full sm:w-[55%] bg-gradient-to-r from-black/40 via-black/15 to-transparent pointer-events-none" />
           </div>
         ))}
 
-        {/* Slide Content with Glass Badge & Text Shadow for 100% Readability while Image Remains Fully Visible */}
+        {/* Slide Content (Direct Crisp Typography with Zero Dark Box Container) */}
         <div className="relative z-20 mx-auto flex h-full max-w-[1370px] flex-col justify-center px-4 sm:px-6 lg:px-8 pb-12">
-          <div className="max-w-[700px] rounded-lg bg-[#111e38]/70 backdrop-blur-md p-5 sm:p-7 shadow-2xl border border-white/20">
+          <div className="max-w-[700px]">
             {/* Tag Badge */}
             <div className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[11.5px] font-black tracking-wider text-white shadow-sm uppercase">
               صله تون — حلول السمع الطبية منذ 2014
             </div>
 
-            {/* Main Title */}
+            {/* Main Title (Clean MediCenter Headline) */}
             <h1
-              className="mt-2.5 text-[24px] sm:text-[32px] lg:text-[38px] font-black leading-[1.2] text-white tracking-tight"
-              style={{ textShadow: "0 2px 5px rgba(0,0,0,0.8)" }}
+              className="mt-3 text-[26px] sm:text-[34px] lg:text-[42px] font-black leading-[1.2] text-white tracking-tight"
+              style={{ textShadow: "0 2px 6px rgba(0,0,0,0.7)" }}
             >
               <span className="block">{current.titleLine1}</span>
-              <span className="block text-[#42B3E5]">{current.titleLine2}</span>
+              <span className="block text-[#42B3E5]" style={{ textShadow: "0 2px 6px rgba(0,0,0,0.8)" }}>
+                {current.titleLine2}
+              </span>
             </h1>
 
             {/* Subtitle */}
             <p
-              className="mt-2.5 max-w-[560px] text-[13.5px] sm:text-[15px] leading-[1.7] text-white/95 font-medium"
-              style={{ textShadow: "0 1px 3px rgba(0,0,0,0.85)" }}
+              className="mt-3 max-w-[560px] text-[14px] sm:text-[16px] leading-[1.75] text-white font-medium"
+              style={{ textShadow: "0 1px 4px rgba(0,0,0,0.8)" }}
             >
               {current.subtitle}
             </p>
 
             {/* Action Buttons */}
-            <div className="mt-4 flex flex-wrap items-center gap-3">
+            <div className="mt-5 flex flex-wrap items-center gap-3">
               <a
                 href={current.ctaHref}
                 target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
                 rel={current.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 bg-[#42B3E5] px-5 py-2.5 text-[14px] font-extrabold text-white shadow-md transition-all hover:bg-white hover:text-[#3156A3]"
+                className="inline-flex items-center gap-2 bg-[#42B3E5] px-5 py-2.5 text-[14px] font-extrabold text-white shadow-lg transition-all hover:bg-white hover:text-[#3156A3]"
               >
                 {current.ctaText} <IconArrow width={15} height={15} />
               </a>
@@ -323,7 +328,7 @@ function HeroModelMedicenter() {
                 href={current.cta2Href}
                 target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
                 rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 border-2 border-white bg-black/40 backdrop-blur-xs px-5 py-2 text-[14px] font-extrabold text-white transition-all hover:bg-white hover:text-[#1a2e51]"
+                className="inline-flex items-center gap-2 border-2 border-white bg-black/25 backdrop-blur-xs px-5 py-2 text-[14px] font-extrabold text-white shadow-md transition-all hover:bg-white hover:text-[#1a2e51]"
               >
                 {current.cta2Text}
               </a>
@@ -332,7 +337,7 @@ function HeroModelMedicenter() {
         </div>
 
         {/* FULL-WIDTH NUMBERED NAVIGATION TABS (01, 02, 03 SPANNING 100% OF THE HERO WIDTH) */}
-        <div className="absolute bottom-0 inset-x-0 z-30 w-full bg-[#111e38]/85 backdrop-blur-md border-t border-white/25">
+        <div className="absolute bottom-0 inset-x-0 z-30 w-full bg-[#111e38]/85 backdrop-blur-md border-t border-white/20">
           <div className="grid grid-cols-3 w-full">
             {MEDICENTER_SLIDES.map((s, i) => (
               <button
