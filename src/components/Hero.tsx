@@ -201,9 +201,9 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter: شريط الأرقام يطفو مباشرة فوق الكروت الثلاثة العائمة
-   - Section A: Spacious High-Aspect Hero Slider (h-[620px] to h-[750px])
-   - Section B: Unified Floating Block (Numbers Bar on top + 3 Cards directly below)
+   2. نموذج MediCenter: شريط الأرقام الشفاف تماماً فوق الكروت الثلاثة العائمة
+   - Section A: Spacious High-Aspect Hero Slider (min-h-[580px] to min-h-[740px])
+   - Section B: Completely Transparent Interactive Numbers Bar + 3 Cards Directly Below
    - Maximum Elevated Floating Overlap (-mt-36 sm:-mt-52 lg:-mt-68)
 ========================================================================= */
 const MEDICENTER_SLIDES = [
@@ -351,40 +351,42 @@ function HeroModelMedicenter() {
       </section>
 
       {/* =========================================================================
-         SECTION B: UNIFIED FLOATING UNIT (Maximum Elevated Floating Overlap)
+         SECTION B: UNIFIED FLOATING UNIT (Completely Transparent Numbers Bar + 3 Cards)
          Elevated to the maximum possible extent (-mt-36 sm:-mt-52 lg:-mt-68)
       ========================================================================= */}
       <section className="relative z-30 -mt-36 sm:-mt-52 lg:-mt-68 px-3 sm:px-6 lg:px-12 pb-10 sm:pb-14 bg-transparent">
-        <div className="mx-auto max-w-[1240px] shadow-[0_30px_90px_rgba(0,0,0,0.38),0_10px_30px_rgba(0,0,0,0.22)] rounded-md overflow-hidden ring-1 ring-black/10 bg-white">
-          {/* Top Interactive Numbers Tabs (Floating directly on top of the 3 Cards) */}
-          <div className="grid grid-cols-3 w-full bg-white border-b border-gray-200">
+        <div className="mx-auto max-w-[1240px]">
+          {/* Top Interactive Numbers Tabs (COMPLETELY TRANSPARENT) */}
+          <div className="grid grid-cols-3 w-full bg-transparent border-b border-white/25">
             {MEDICENTER_SLIDES.map((s, i) => (
               <button
                 key={i}
                 onClick={() => go(i)}
                 aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-                className={`group relative flex items-center justify-center sm:justify-start gap-2.5 px-2 sm:px-6 py-3 sm:py-4 text-right transition-all border-e border-gray-200 last:border-e-0 ${
+                className={`group relative flex items-center justify-center sm:justify-start gap-2.5 px-2 sm:px-6 py-3 sm:py-4 text-right transition-all border-e border-white/20 last:border-e-0 ${
                   i === index
-                    ? "bg-sky-50/80 text-[#111e38]"
-                    : "bg-white text-gray-600 hover:text-[#0384CE] hover:bg-gray-50/80"
+                    ? "bg-white/15 text-white backdrop-blur-xs font-black shadow-inner"
+                    : "bg-transparent text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
                 {/* Active indicator bar */}
                 {i === index && (
-                  <span className="absolute top-0 inset-x-0 h-[3.5px] bg-[#42B3E5]" />
+                  <span className="absolute top-0 inset-x-0 h-[3.5px] bg-[#42B3E5] shadow-[0_0_12px_#42B3E5]" />
                 )}
-                <span className="font-mono text-[13px] sm:text-[15px] font-black text-[#42B3E5] tracking-tighter">
+                <span className={`font-mono text-[13px] sm:text-[16px] font-black tracking-tighter drop-shadow-md ${
+                  i === index ? "text-[#42B3E5]" : "text-white/90 group-hover:text-[#42B3E5]"
+                }`}>
                   0{i + 1}
                 </span>
-                <span className="hidden sm:inline-block text-[12px] sm:text-[13.5px] font-extrabold truncate text-[#111e38] tracking-tight">
+                <span className="hidden sm:inline-block text-[12px] sm:text-[14px] font-extrabold truncate tracking-tight text-white drop-shadow-md">
                   {s.titleLine1}
                 </span>
               </button>
             ))}
           </div>
 
-          {/* The 3 Connected Home Boxes (Directly below the Numbers Bar) */}
-          <div className="grid grid-cols-1 md:grid-cols-3">
+          {/* The 3 Connected Home Boxes (Directly below the Transparent Numbers Bar) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 shadow-[0_30px_90px_rgba(0,0,0,0.38),0_10px_30px_rgba(0,0,0,0.22)] rounded-b-md md:rounded-b-md overflow-hidden ring-1 ring-black/10">
             {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
             <div className="flex flex-col justify-between bg-[#42B3E5] px-6 sm:px-7 lg:px-8 py-7 sm:py-8 text-white transition-colors duration-300 hover:brightness-105">
               <div>
