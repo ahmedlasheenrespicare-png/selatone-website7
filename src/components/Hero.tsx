@@ -5,7 +5,6 @@ import {
   IconCheck,
   IconChat,
   IconPhone,
-  IconShield,
   IconEar,
   IconClock,
 } from "./Icons";
@@ -83,6 +82,7 @@ function HeroOriginal() {
       onMouseLeave={() => setPaused(false)}
       aria-label="النموذج الأصلي — خدمات صله تون"
     >
+      {/* Side Info Stack */}
       <div className="order-2 flex flex-col justify-center gap-px bg-white/15 px-6 py-8 lg:order-1 lg:px-8 lg:py-10">
         {ORIGINAL_BOXES.map((b) => (
           <div key={b.title} className="bg-navy py-6">
@@ -116,6 +116,7 @@ function HeroOriginal() {
         </div>
       </div>
 
+      {/* Main Slider */}
       <div className="relative order-1 h-[470px] overflow-hidden bg-ink sm:h-[520px] lg:order-2 lg:h-auto lg:min-h-[580px]">
         {ORIGINAL_SLIDES.map((s, i) => (
           <div key={s.img} className="absolute inset-0">
@@ -162,6 +163,7 @@ function HeroOriginal() {
           ))}
         </div>
 
+        {/* Controls */}
         <div className="absolute bottom-0 start-0 flex items-center gap-px">
           <button
             onClick={() => go(index - 1)}
@@ -235,7 +237,7 @@ const MEDICENTER_SLIDES = [
   },
 ];
 
-function HeroMedicenter() {
+function HeroModelMedicenter() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -256,6 +258,7 @@ function HeroMedicenter() {
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter"
     >
+      {/* 1. Main Full-Width Slider */}
       <div className="relative h-[460px] overflow-hidden bg-ink sm:h-[500px] lg:h-[540px]">
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
@@ -275,6 +278,7 @@ function HeroMedicenter() {
           </div>
         ))}
 
+        {/* Slide Content Overlay */}
         <div className="relative mx-auto flex h-full max-w-[1370px] flex-col justify-center px-4 sm:px-6 lg:px-8">
           <div className="max-w-[700px] text-white">
             <div className="inline-block bg-brand px-3.5 py-1 text-[13px] font-black uppercase tracking-wider text-ink">
@@ -314,6 +318,7 @@ function HeroMedicenter() {
           </div>
         </div>
 
+        {/* Numbered Pagination (1, 2, 3) */}
         <div className="absolute bottom-6 end-6 z-20 flex items-center gap-1.5 sm:end-12">
           {MEDICENTER_SLIDES.map((_, i) => (
             <button
@@ -348,7 +353,9 @@ function HeroMedicenter() {
         </div>
       </div>
 
+      {/* 2. Signature 3 Bottom Action Boxes */}
       <div className="grid grid-cols-1 md:grid-cols-3">
+        {/* BOX 1: Emergency & Quick Contact (#27437f) */}
         <div className="group relative flex flex-col justify-between bg-[#27437f] p-8 text-white transition-colors hover:bg-[#203768] lg:p-10">
           <div>
             <div className="flex items-center justify-between border-b border-white/20 pb-4">
@@ -383,6 +390,7 @@ function HeroMedicenter() {
           </div>
         </div>
 
+        {/* BOX 2: Guide & Services (#0479be) */}
         <div className="group relative flex flex-col justify-between bg-[#0479be] p-8 text-white transition-colors hover:bg-[#0369a5] lg:p-10">
           <div>
             <div className="flex items-center justify-between border-b border-white/20 pb-4">
@@ -415,6 +423,7 @@ function HeroMedicenter() {
           </div>
         </div>
 
+        {/* BOX 3: Opening Hours & Schedule (#3156a3) */}
         <div className="group relative flex flex-col justify-between bg-[#3156a3] p-8 text-white transition-colors hover:bg-[#29488a] lg:p-10">
           <div>
             <div className="flex items-center justify-between border-b border-white/20 pb-4">
@@ -464,6 +473,7 @@ export default function Hero() {
 
   return (
     <div>
+      {/* Switcher Bar between MediCenter & Original */}
       <div className="border-b border-navy-dark bg-[#13223f] px-4 py-2.5 text-white">
         <div className="mx-auto flex max-w-[1370px] flex-wrap items-center justify-between gap-3 text-[13px] lg:px-4">
           <div className="flex items-center gap-2">
@@ -495,6 +505,7 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Render the selected Model */}
       {model === "medicenter" ? <HeroModelMedicenter /> : <HeroOriginal />}
     </div>
   );
