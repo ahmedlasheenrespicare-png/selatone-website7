@@ -201,10 +201,10 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكامل (NO White Background on Mobile/Small Screens)
-   - Dark, crisp background styling with NO white/milky overlays on mobile
-   - Pure, vibrant MediCenter blue colors for the 3 Cards on all screen sizes
-   - Navigation bar has a sleek dark tinted background (no white haze)
+   2. نموذج MediCenter: قسم الهيرو المستقل + قسم الكروت المترابط معه
+   - Section A: Independent Full-Height Slider Stage
+   - Section B: Connected Slide Numbers Navigation Bar (01, 02, 03)
+   - Section C: Connected Signature 3 Home Boxes
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -258,19 +258,22 @@ function HeroModelMedicenter() {
   const current = MEDICENTER_SLIDES[index];
 
   return (
-    <section
-      className="relative w-full overflow-hidden bg-[#0c1628] font-sans selection:bg-[#42B3E5] selection:text-white min-h-[640px] lg:min-h-[680px] flex flex-col justify-between"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
-    >
-      {/* 1. SEAMLESS BACKGROUND SLIDE IMAGES */}
-      <div className="absolute inset-0 z-0 h-full w-full pointer-events-none">
+    <div className="w-full font-sans selection:bg-[#42B3E5] selection:text-white">
+      {/* =========================================================================
+         SECTION A: INDEPENDENT HERO SLIDER STAGE (Spacious, Full Dimensions, No clutter)
+      ========================================================================= */}
+      <section
+        className="relative w-full overflow-hidden bg-[#0c1628] h-[460px] sm:h-[520px] lg:h-[580px] flex items-center"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        aria-label="سلايدر صله تون الطبي"
+      >
+        {/* Full-bleed background images */}
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
             key={s.img}
             className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ease-in-out ${
-              i === index ? "opacity-100" : "opacity-0"
+              i === index ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
             <img
@@ -279,78 +282,98 @@ function HeroModelMedicenter() {
               className="h-full w-full object-cover object-center"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            {/* Dark contrast gradient - No white haze */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0c1628]/95 via-[#0c1628]/70 to-[#0c1628]/40" />
-            <div className="absolute inset-0 bg-[#0c1628]/35" />
+            {/* Dark Scrim overlay for high legibility */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0c1628]/95 via-[#0c1628]/65 to-[#0c1628]/35" />
+            <div className="absolute inset-0 bg-[#0c1628]/30" />
           </div>
         ))}
-      </div>
 
-      {/* 2. FOREGROUND TEXT CONTENT */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-5 sm:px-8 lg:px-14 pt-10 sm:pt-14 pb-5 sm:pb-7">
-        <div className="max-w-[720px]">
-          {/* Badge */}
-          <span className="inline-block bg-[#42B3E5] px-3 py-1 text-[11px] sm:text-[12px] font-black tracking-wider text-white uppercase shadow-md">
-            صله تون — حلول السمع الطبية منذ 2014
-          </span>
-
-          {/* Main Title */}
-          <h1 className="mt-3.5 text-[clamp(26px,4.5vw,56px)] font-black leading-[1.25] text-white tracking-tight drop-shadow-md">
-            <span className="block">{current.titleLine1}</span>
-            <span className="block text-[#42B3E5] drop-shadow-md">
-              {current.titleLine2}
+        {/* Foreground Slider Content */}
+        <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-6 sm:px-10 lg:px-14">
+          <div className="max-w-[720px]">
+            {/* Tag Badge */}
+            <span className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[11px] sm:text-[12px] font-black tracking-wider text-white shadow-md uppercase">
+              صله تون — حلول السمع الطبية منذ 2014
             </span>
-          </h1>
 
-          {/* Subtitle */}
-          <p className="mt-3.5 max-w-[560px] text-[14.5px] sm:text-[16.5px] leading-[1.8] text-white/95 font-medium drop-shadow-md">
-            {current.subtitle}
-          </p>
+            {/* Main Title */}
+            <h1 className="mt-3.5 text-[clamp(28px,4.5vw,56px)] font-black leading-[1.25] text-white tracking-tight drop-shadow-md">
+              <span className="block">{current.titleLine1}</span>
+              <span className="block text-[#42B3E5] drop-shadow-md">
+                {current.titleLine2}
+              </span>
+            </h1>
 
-          {/* Action Buttons */}
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <a
-              href={current.ctaHref}
-              target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
-              rel={current.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center gap-2 bg-[#42B3E5] px-5 sm:px-6 py-2.5 sm:py-3 text-[13.5px] sm:text-[14.5px] font-extrabold text-white shadow-xl transition-all hover:bg-white hover:text-[#3156A3]"
-            >
-              {current.ctaText} <IconArrow width={16} height={16} />
-            </a>
-            <a
-              href={current.cta2Href}
-              target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
-              rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center gap-2 border-2 border-white bg-black/40 backdrop-blur-xs px-4 sm:px-5 py-2 sm:py-2.5 text-[13px] sm:text-[14px] font-bold text-white shadow-lg transition-all hover:bg-white hover:text-[#1a2e51]"
-            >
-              {current.cta2Text}
-            </a>
+            {/* Subtitle */}
+            <p className="mt-3.5 max-w-[560px] text-[15px] sm:text-[17px] leading-[1.8] text-white/95 font-medium drop-shadow-md">
+              {current.subtitle}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3.5">
+              <a
+                href={current.ctaHref}
+                target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
+                rel={current.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="inline-flex items-center gap-2 bg-[#42B3E5] px-6 py-3 text-[14px] sm:text-[15px] font-extrabold text-white shadow-xl transition-all hover:bg-white hover:text-[#3156A3]"
+              >
+                {current.ctaText} <IconArrow width={16} height={16} />
+              </a>
+              <a
+                href={current.cta2Href}
+                target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
+                rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="inline-flex items-center gap-2 border-2 border-white bg-black/35 backdrop-blur-xs px-5 sm:px-6 py-2.5 sm:py-3 text-[13.5px] sm:text-[14.5px] font-bold text-white shadow-lg transition-all hover:bg-white hover:text-[#1a2e51]"
+              >
+                {current.cta2Text}
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* 3. SLEEK DARK-TINTED NUMBERED NAVIGATION TABS (Zero White Haze) */}
-      <div className="relative z-10 w-full bg-[#0a1220]/80 backdrop-blur-md border-y border-white/15">
+        {/* Prev / Next Slider Arrows */}
+        <div className="absolute bottom-4 end-4 sm:end-8 z-10 flex items-center gap-1.5">
+          <button
+            onClick={() => go(index - 1)}
+            className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-black/40 text-white backdrop-blur-sm border border-white/20 transition hover:bg-[#42B3E5]"
+            aria-label="الشريحة السابقة"
+          >
+            <IconArrowBack width={16} height={16} />
+          </button>
+          <button
+            onClick={() => go(index + 1)}
+            className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-black/40 text-white backdrop-blur-sm border border-white/20 transition hover:bg-[#42B3E5]"
+            aria-label="الشريحة التالية"
+          >
+            <IconArrow width={16} height={16} />
+          </button>
+        </div>
+      </section>
+
+      {/* =========================================================================
+         SECTION B: CONNECTED NAVIGATION TABS (Interactive Bridge linked to Slider)
+      ========================================================================= */}
+      <div className="relative z-20 w-full bg-[#0a1220] border-y border-white/15">
         <div className="grid grid-cols-3 w-full">
           {MEDICENTER_SLIDES.map((s, i) => (
             <button
               key={i}
               onClick={() => go(i)}
               aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-              className={`group relative flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2.5 px-2 sm:px-5 py-2 sm:py-2.5 text-right transition-all border-e border-white/10 last:border-e-0 ${
+              className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-6 py-2.5 sm:py-3 text-right transition-all border-e border-white/10 last:border-e-0 ${
                 i === index
-                  ? "bg-black/50 text-white shadow-inner"
-                  : "text-white/70 hover:text-white hover:bg-black/30"
+                  ? "bg-[#42B3E5]/25 text-white"
+                  : "text-white/70 hover:text-white hover:bg-white/5"
               }`}
             >
               {/* Active top indicator bar */}
               {i === index && (
-                <span className="absolute top-0 inset-x-0 h-[2.5px] bg-[#42B3E5]" />
+                <span className="absolute top-0 inset-x-0 h-[3px] bg-[#42B3E5]" />
               )}
-              <span className="font-mono text-[11px] sm:text-[12px] font-black text-[#42B3E5] tracking-tighter">
+              <span className="font-mono text-[11px] sm:text-[13px] font-black text-[#42B3E5] tracking-tighter">
                 0{i + 1}
               </span>
-              <span className="hidden sm:inline-block text-[10.5px] sm:text-[11.5px] font-semibold truncate text-white/90 tracking-tight">
+              <span className="hidden sm:inline-block text-[11px] sm:text-[12px] font-bold truncate text-white/90 tracking-tight">
                 {s.titleLine1}
               </span>
             </button>
@@ -358,35 +381,37 @@ function HeroModelMedicenter() {
         </div>
       </div>
 
-      {/* 4. THE 3 MEDICENTER HOME BOXES (Rich Solid Signature Colors - No White Backgrounds) */}
-      <div className="relative z-10 w-full px-3 sm:px-6 lg:px-12 py-5 sm:py-6 lg:py-8 bg-[#0c1628]/40">
-        <div className="mx-auto max-w-[1180px] shadow-2xl rounded-md overflow-hidden">
+      {/* =========================================================================
+         SECTION C: INDEPENDENT CONNECTED HOME BOXES SECTION
+      ========================================================================= */}
+      <section className="relative w-full bg-[#f8f9fc] dark:bg-[#0c1628] px-3 sm:px-6 lg:px-12 py-8 lg:py-12 border-b border-gray-200/50">
+        <div className="mx-auto max-w-[1240px] shadow-2xl rounded-md overflow-hidden">
           {/* Responsive Grid: 1 column on Mobile, 3 columns on Tablet & Desktop */}
           <div className="grid grid-cols-1 md:grid-cols-3">
-            {/* BOX 1: Pure Vivid Light Blue (#42B3E5) */}
-            <div className="flex flex-col justify-between bg-[#42B3E5] px-5 sm:px-6 lg:px-7 py-5 sm:py-6 lg:py-7 text-white transition-colors duration-300 hover:brightness-105">
+            {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
+            <div className="flex flex-col justify-between bg-[#42B3E5] px-6 sm:px-7 lg:px-8 py-7 sm:py-8 text-white transition-colors duration-300 hover:brightness-105">
               <div>
-                <div className="flex items-center justify-between border-b border-white/25 pb-3">
-                  <h2 className="text-[19px] sm:text-[20px] font-black text-white tracking-wide">
+                <div className="flex items-center justify-between border-b border-white/25 pb-3.5">
+                  <h2 className="text-[20px] sm:text-[21px] font-black text-white tracking-wide">
                     استشارة وحالات طارئة
                   </h2>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/20 text-white">
-                    <IconPhone width={16} height={16} />
+                  <span className="flex h-9 w-9 items-center justify-center rounded-sm bg-white/15 text-white">
+                    <IconPhone width={18} height={18} />
                   </span>
                 </div>
-                <p className="mt-3 text-[13.5px] sm:text-[14px] leading-[1.7] text-white/95 font-medium">
+                <p className="mt-3.5 text-[14px] sm:text-[14.5px] leading-[1.75] text-white/95 font-medium">
                   إذا كنت تعاني من ضعف مفاجئ بالسمع أو عطل في سماعتك الطبية، اتصل بخط الطوارئ والاستشارات السريعة للحصول على مساعدة عاجلة.
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/20">
+              <div className="mt-6 pt-4 border-t border-white/20">
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-[11.5px] text-white/85 font-bold block">هاتف الاستشارة السريعة:</span>
+                    <span className="text-[12px] text-white/85 font-bold block">هاتف الاستشارة السريعة:</span>
                     <a
                       href={`tel:${PHONE_TEL}`}
                       dir="ltr"
-                      className="text-[18px] sm:text-[19px] lg:text-[20px] font-black text-white hover:underline"
+                      className="text-[18px] sm:text-[20px] font-black text-white hover:underline"
                     >
                       {PHONE_DISPLAY}
                     </a>
@@ -395,89 +420,89 @@ function HeroModelMedicenter() {
                     href={wa("مرحبًا صله تون، أحتاج استشارة طبية عاجلة بخصوص السمع")}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 border border-white bg-white/10 px-3 py-1 text-[12.5px] font-bold text-white transition hover:bg-white hover:text-[#42B3E5]"
+                    className="inline-flex items-center gap-1.5 border border-white bg-white/15 px-3.5 py-1.5 text-[13px] font-bold text-white transition hover:bg-white hover:text-[#42B3E5]"
                   >
-                    <IconChat width={13} height={13} /> تواصل فوري
+                    <IconChat width={14} height={14} /> تواصل فوري
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* BOX 2: Pure Vivid Royal Blue (#0384CE) */}
-            <div className="flex flex-col justify-between bg-[#0384CE] px-5 sm:px-6 lg:px-7 py-5 sm:py-6 lg:py-7 text-white transition-colors duration-300 hover:brightness-105">
+            {/* BOX 2: Mid Blue (#0384CE) — Doctors Timetable & Services */}
+            <div className="flex flex-col justify-between bg-[#0384CE] px-6 sm:px-7 lg:px-8 py-7 sm:py-8 text-white transition-colors duration-300 hover:brightness-105">
               <div>
-                <div className="flex items-center justify-between border-b border-white/25 pb-3">
-                  <h2 className="text-[19px] sm:text-[20px] font-black text-white tracking-wide">
+                <div className="flex items-center justify-between border-b border-white/25 pb-3.5">
+                  <h2 className="text-[20px] sm:text-[21px] font-black text-white tracking-wide">
                     جدول وفحوصات السمع
                   </h2>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/20 text-white">
-                    <IconEar width={16} height={16} />
+                  <span className="flex h-9 w-9 items-center justify-center rounded-sm bg-white/15 text-white">
+                    <IconEar width={18} height={18} />
                   </span>
                 </div>
-                <p className="mt-3 text-[13.5px] sm:text-[14px] leading-[1.7] text-white/95 font-medium">
+                <p className="mt-3.5 text-[14px] sm:text-[14.5px] leading-[1.75] text-white/95 font-medium">
                   نوفر فحوصات سمعية شاملة، أخذ مقاسات قوالب الأذن، وبرمجة رقمية متطورة لكافة موديلات BTE وRIC وITE لتلائم احتياجاتك اليومية.
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/20">
+              <div className="mt-6 pt-4 border-t border-white/20">
                 <div className="flex items-center justify-between">
-                  <span className="text-[12.5px] text-white/90 font-bold">
+                  <span className="text-[13px] text-white/95 font-bold">
                     فحص استرشادي في دقيقتين
                   </span>
                   <a
                     href="#hearing-test"
-                    className="inline-flex items-center gap-1.5 border border-white bg-white px-3 py-1 text-[12.5px] font-extrabold text-[#0384CE] transition hover:bg-transparent hover:text-white"
+                    className="inline-flex items-center gap-1.5 border border-white bg-white px-3.5 py-1.5 text-[13px] font-extrabold text-[#0384CE] transition hover:bg-transparent hover:text-white"
                   >
-                    ابدأ الفحص <IconArrow width={13} height={13} />
+                    ابدأ الفحص <IconArrow width={14} height={14} />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* BOX 3: Pure Vivid Dark Navy Blue (#3156A3) */}
-            <div className="flex flex-col justify-between bg-[#3156A3] px-5 sm:px-6 lg:px-7 py-5 sm:py-6 lg:py-7 text-white transition-colors duration-300 hover:brightness-105">
+            {/* BOX 3: Dark Blue (#3156A3) — Opening Hours */}
+            <div className="flex flex-col justify-between bg-[#3156A3] px-6 sm:px-7 lg:px-8 py-7 sm:py-8 text-white transition-colors duration-300 hover:brightness-105">
               <div>
-                <div className="flex items-center justify-between border-b border-white/25 pb-3">
-                  <h2 className="text-[19px] sm:text-[20px] font-black text-white tracking-wide">
+                <div className="flex items-center justify-between border-b border-white/25 pb-3.5">
+                  <h2 className="text-[20px] sm:text-[21px] font-black text-white tracking-wide">
                     مواعيد العمل الرسمية
                   </h2>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/20 text-white">
-                    <IconClock width={16} height={16} />
+                  <span className="flex h-9 w-9 items-center justify-center rounded-sm bg-white/15 text-white">
+                    <IconClock width={18} height={18} />
                   </span>
                 </div>
 
-                {/* Opening Hours Item List */}
-                <ul className="mt-2 divide-y divide-white/15 text-[13px] lg:text-[13.5px]">
-                  <li className="flex items-center justify-between py-1.5">
+                {/* Opening Hours Table */}
+                <ul className="mt-2.5 divide-y divide-white/15 text-[13.5px]">
+                  <li className="flex items-center justify-between py-2">
                     <span className="text-white/85 font-medium">السبت – الأربعاء</span>
                     <div className="font-bold text-white" dir="ltr">8:30 AM – 9:00 PM</div>
                   </li>
-                  <li className="flex items-center justify-between py-1.5">
+                  <li className="flex items-center justify-between py-2">
                     <span className="text-white/85 font-medium">الخميس</span>
                     <div className="font-bold text-white" dir="ltr">8:30 AM – 7:00 PM</div>
                   </li>
-                  <li className="flex items-center justify-between py-1.5">
+                  <li className="flex items-center justify-between py-2">
                     <span className="text-white/85 font-medium">الجمعة</span>
                     <div className="font-bold text-[#42B3E5]">استشارات وواتساب</div>
                   </li>
                 </ul>
               </div>
 
-              <div className="mt-3 pt-2.5 border-t border-white/20">
+              <div className="mt-4 pt-3.5 border-t border-white/20">
                 <a
                   href={wa("مرحبًا صله تون، أود حجز موعد كشف أو فحص سمع")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 bg-[#42B3E5] py-2 text-[13px] font-extrabold text-white transition hover:bg-white hover:text-[#3156A3]"
+                  className="flex w-full items-center justify-center gap-2 bg-[#42B3E5] py-2.5 text-[13.5px] font-extrabold text-white transition hover:bg-white hover:text-[#3156A3]"
                 >
-                  <IconChat width={14} height={14} /> حجز موعد كشف عبر واتساب
+                  <IconChat width={15} height={15} /> حجز موعد كشف عبر واتساب
                 </a>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 
