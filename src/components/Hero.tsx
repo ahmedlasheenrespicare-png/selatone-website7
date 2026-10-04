@@ -201,8 +201,8 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (Uniform 100% Full Shading)
-   - Background slide images covered with identical, uniform shading across 100% of the image
+   2. نموذج MediCenter الطبي الكلاسيكي (Smallest Micro Font Numbers Bar)
+   - Micro compact font for slide numbers bar (text-[10px] / text-[11px])
    - Full-bleed coverage spanning entire hero section behind bottom cards
    - Slide tabs (01, 02, 03) span the FULL width of the hero from edge to edge
    - 3 Bottom Home Boxes float centered over the background image (< Hero full width)
@@ -281,7 +281,7 @@ function HeroModelMedicenter() {
               className="h-full w-full object-cover object-center filter-none brightness-100"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            {/* UNIFORM FULL-SURFACE SHADING: Same consistent overlay across every pixel of the image */}
+            {/* UNIFORM FULL-SURFACE SHADING */}
             <div className="absolute inset-0 bg-[#0c1628]/60 backdrop-brightness-95" />
           </div>
         ))}
@@ -291,7 +291,7 @@ function HeroModelMedicenter() {
       <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-4">
         <div className="max-w-[720px]">
           {/* Tag Badge */}
-          <div className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[12px] font-black tracking-wider text-white shadow-md uppercase">
+          <div className="inline-block bg-[#42B3E5] px-3 py-0.5 text-[11px] font-black tracking-wider text-white shadow-md uppercase">
             صله تون — حلول السمع الطبية منذ 2014
           </div>
 
@@ -334,28 +334,28 @@ function HeroModelMedicenter() {
         </div>
       </div>
 
-      {/* 3. MIDDLE: FULL-WIDTH NUMBERED NAVIGATION TABS (01, 02, 03 SPANNING 100% OF THE HERO WIDTH) */}
-      <div className="relative z-10 w-full bg-black/40 backdrop-blur-md border-y border-white/20">
+      {/* 3. MIDDLE: FULL-WIDTH NUMBERED NAVIGATION TABS (SMALLEST MICRO FONT SIZE text-[10px]/text-[11px]) */}
+      <div className="relative z-10 w-full bg-black/45 backdrop-blur-md border-y border-white/15">
         <div className="grid grid-cols-3 w-full">
           {MEDICENTER_SLIDES.map((s, i) => (
             <button
               key={i}
               onClick={() => go(i)}
               aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-              className={`group relative flex items-center justify-center sm:justify-start gap-2.5 px-3 sm:px-6 py-3 text-right transition-all border-e border-white/15 last:border-e-0 ${
+              className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-5 py-1.5 sm:py-2 text-right transition-all border-e border-white/10 last:border-e-0 ${
                 i === index
                   ? "bg-white/20 text-white"
-                  : "text-white/80 hover:text-white hover:bg-white/10"
+                  : "text-white/70 hover:text-white hover:bg-white/10"
               }`}
             >
-              {/* Active indicator bar spanning the full width of the tab */}
+              {/* Active indicator micro bar */}
               {i === index && (
-                <span className="absolute top-0 inset-x-0 h-[3.5px] bg-[#42B3E5]" />
+                <span className="absolute top-0 inset-x-0 h-[2px] bg-[#42B3E5]" />
               )}
-              <span className="font-mono text-[16px] sm:text-[19px] font-black text-[#42B3E5]">
+              <span className="font-mono text-[11px] sm:text-[12px] font-black text-[#42B3E5] tracking-tighter">
                 0{i + 1}
               </span>
-              <span className="hidden sm:inline-block text-[13.5px] font-bold truncate text-white">
+              <span className="hidden sm:inline-block text-[10px] sm:text-[11px] font-semibold truncate text-white/90 tracking-tight">
                 {s.titleLine1}
               </span>
             </button>
