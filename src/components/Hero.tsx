@@ -201,9 +201,10 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (1:1 MediCenter Full-Width Replica)
+   2. نموذج MediCenter الطبي الكلاسيكي (1:1 MediCenter Centered Boxes Replica)
    - Matches the total height of HeroOriginal (min-h-[580px])
-   - 100% Full-Screen Width (Edge-to-Edge)
+   - Full-width hero background and slider
+   - 3 Signature Home Boxes centered inside with margins on both sides (< Hero width)
    - Exact 3-color palette: Light Blue (#42B3E5) | Blue (#0384CE) | Dark Blue (#3156A3)
 ========================================================================= */
 const MEDICENTER_SLIDES = [
@@ -262,7 +263,7 @@ function HeroModelMedicenter() {
       className="relative w-full bg-[#1a2e51] font-sans selection:bg-[#42B3E5] selection:text-white lg:min-h-[580px] flex flex-col justify-between"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي بعرض الشاشة الكامل"
+      aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
       {/* 1. FULL-WIDTH SLIDER (Proportioned to match Original Hero total height) */}
       <div className="relative w-full h-[380px] sm:h-[400px] lg:h-[390px] overflow-hidden bg-[#13223f]">
@@ -382,118 +383,120 @@ function HeroModelMedicenter() {
         </div>
       </div>
 
-      {/* 2. FULL-WIDTH 3 MEDICENTER HOME BOXES (100% Screen Width, Edge-to-Edge) */}
-      <div className="w-full relative z-30">
-        <div className="grid grid-cols-1 md:grid-cols-3 w-full">
-          {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
-          <div className="flex flex-col justify-between bg-[#42B3E5] px-6 py-6 lg:px-8 lg:py-6 text-white transition-colors duration-300 hover:brightness-105">
-            <div>
-              <div className="flex items-center justify-between border-b border-white/25 pb-3">
-                <h2 className="text-[19px] lg:text-[20px] font-black text-white tracking-wide">
-                  استشارة وحالات طارئة
-                </h2>
-                <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/15 text-white">
-                  <IconPhone width={16} height={16} />
-                </span>
+      {/* 2. SIGNATURE 3 MEDICENTER HOME BOXES (Centered Container: Less than Hero full width, with margins on both sides) */}
+      <div className="w-full relative z-30 px-3 sm:px-6 lg:px-12 py-3 lg:py-4">
+        <div className="mx-auto max-w-[1180px] shadow-2xl rounded-t-sm overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-3">
+            {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
+            <div className="flex flex-col justify-between bg-[#42B3E5] px-6 py-6 lg:px-7 lg:py-6 text-white transition-colors duration-300 hover:brightness-105">
+              <div>
+                <div className="flex items-center justify-between border-b border-white/25 pb-3">
+                  <h2 className="text-[19px] lg:text-[20px] font-black text-white tracking-wide">
+                    استشارة وحالات طارئة
+                  </h2>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/15 text-white">
+                    <IconPhone width={16} height={16} />
+                  </span>
+                </div>
+                <p className="mt-3 text-[13.5px] lg:text-[14px] leading-[1.7] text-white/95 font-medium">
+                  إذا كنت تعاني من ضعف مفاجئ بالسمع أو عطل في سماعتك الطبية، اتصل بخط الطوارئ والاستشارات السريعة للحصول على مساعدة عاجلة.
+                </p>
               </div>
-              <p className="mt-3 text-[13.5px] lg:text-[14px] leading-[1.7] text-white/95 font-medium">
-                إذا كنت تعاني من ضعف مفاجئ بالسمع أو عطل في سماعتك الطبية، اتصل بخط الطوارئ والاستشارات السريعة للحصول على مساعدة عاجلة.
-              </p>
-            </div>
 
-            <div className="mt-4 pt-3 border-t border-white/20">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-[11.5px] text-white/80 font-bold block">هاتف الاستشارة السريعة:</span>
+              <div className="mt-4 pt-3 border-t border-white/20">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-[11.5px] text-white/80 font-bold block">هاتف الاستشارة السريعة:</span>
+                    <a
+                      href={`tel:${PHONE_TEL}`}
+                      dir="ltr"
+                      className="text-[18px] lg:text-[20px] font-black text-white hover:underline"
+                    >
+                      {PHONE_DISPLAY}
+                    </a>
+                  </div>
                   <a
-                    href={`tel:${PHONE_TEL}`}
-                    dir="ltr"
-                    className="text-[18px] lg:text-[20px] font-black text-white hover:underline"
+                    href={wa("مرحبًا صله تون، أحتاج استشارة طبية عاجلة بخصوص السمع")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 border border-white bg-white/10 px-3 py-1 text-[12.5px] font-bold text-white transition hover:bg-white hover:text-[#42B3E5]"
                   >
-                    {PHONE_DISPLAY}
+                    <IconChat width={13} height={13} /> تواصل فوري
                   </a>
                 </div>
+              </div>
+            </div>
+
+            {/* BOX 2: Mid Blue (#0384CE) — Doctors Timetable & Services */}
+            <div className="flex flex-col justify-between bg-[#0384CE] px-6 py-6 lg:px-7 lg:py-6 text-white transition-colors duration-300 hover:brightness-105">
+              <div>
+                <div className="flex items-center justify-between border-b border-white/25 pb-3">
+                  <h2 className="text-[19px] lg:text-[20px] font-black text-white tracking-wide">
+                    جدول وفحوصات السمع
+                  </h2>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/15 text-white">
+                    <IconEar width={16} height={16} />
+                  </span>
+                </div>
+                <p className="mt-3 text-[13.5px] lg:text-[14px] leading-[1.7] text-white/95 font-medium">
+                  نوفر فحوصات سمعية شاملة، أخذ مقاسات قوالب الأذن، وبرمجة رقمية متطورة لكافة موديلات BTE وRIC وITE لتلائم احتياجاتك اليومية.
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-white/20">
+                <div className="flex items-center justify-between">
+                  <span className="text-[12.5px] text-white/90 font-bold">
+                    فحص استرشادي في دقيقتين
+                  </span>
+                  <a
+                    href="#hearing-test"
+                    className="inline-flex items-center gap-1.5 border border-white bg-white px-3 py-1 text-[12.5px] font-extrabold text-[#0384CE] transition hover:bg-transparent hover:text-white"
+                  >
+                    ابدأ الفحص <IconArrow width={13} height={13} />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* BOX 3: Dark Blue (#3156A3) — Opening Hours */}
+            <div className="flex flex-col justify-between bg-[#3156A3] px-6 py-6 lg:px-7 lg:py-6 text-white transition-colors duration-300 hover:brightness-105">
+              <div>
+                <div className="flex items-center justify-between border-b border-white/25 pb-3">
+                  <h2 className="text-[19px] lg:text-[20px] font-black text-white tracking-wide">
+                    مواعيد العمل الرسمية
+                  </h2>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/15 text-white">
+                    <IconClock width={16} height={16} />
+                  </span>
+                </div>
+
+                {/* Exact MediCenter Opening Hours Item List */}
+                <ul className="mt-2 divide-y divide-white/15 text-[13px] lg:text-[13.5px]">
+                  <li className="flex items-center justify-between py-1.5">
+                    <span className="text-white/85 font-medium">السبت – الأربعاء</span>
+                    <div className="font-bold text-white" dir="ltr">8:30 AM – 9:00 PM</div>
+                  </li>
+                  <li className="flex items-center justify-between py-1.5">
+                    <span className="text-white/85 font-medium">الخميس</span>
+                    <div className="font-bold text-white" dir="ltr">8:30 AM – 7:00 PM</div>
+                  </li>
+                  <li className="flex items-center justify-between py-1.5">
+                    <span className="text-white/85 font-medium">الجمعة</span>
+                    <div className="font-bold text-[#42B3E5]">استشارات وواتساب</div>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-3 pt-2.5 border-t border-white/20">
                 <a
-                  href={wa("مرحبًا صله تون، أحتاج استشارة طبية عاجلة بخصوص السمع")}
+                  href={wa("مرحبًا صله تون، أود حجز موعد كشف أو فحص سمع")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 border border-white bg-white/10 px-3 py-1 text-[12.5px] font-bold text-white transition hover:bg-white hover:text-[#42B3E5]"
+                  className="flex w-full items-center justify-center gap-2 bg-[#42B3E5] py-2 text-[13px] font-extrabold text-white transition hover:bg-white hover:text-[#3156A3]"
                 >
-                  <IconChat width={13} height={13} /> تواصل فوري
+                  <IconChat width={14} height={14} /> حجز موعد كشف عبر واتساب
                 </a>
               </div>
-            </div>
-          </div>
-
-          {/* BOX 2: Mid Blue (#0384CE) — Doctors Timetable & Services */}
-          <div className="flex flex-col justify-between bg-[#0384CE] px-6 py-6 lg:px-8 lg:py-6 text-white transition-colors duration-300 hover:brightness-105">
-            <div>
-              <div className="flex items-center justify-between border-b border-white/25 pb-3">
-                <h2 className="text-[19px] lg:text-[20px] font-black text-white tracking-wide">
-                  جدول وفحوصات السمع
-                </h2>
-                <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/15 text-white">
-                  <IconEar width={16} height={16} />
-                </span>
-              </div>
-              <p className="mt-3 text-[13.5px] lg:text-[14px] leading-[1.7] text-white/95 font-medium">
-                نوفر فحوصات سمعية شاملة، أخذ مقاسات قوالب الأذن، وبرمجة رقمية متطورة لكافة موديلات BTE وRIC وITE لتلائم احتياجاتك اليومية.
-              </p>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-white/20">
-              <div className="flex items-center justify-between">
-                <span className="text-[12.5px] text-white/90 font-bold">
-                  فحص استرشادي في دقيقتين
-                </span>
-                <a
-                  href="#hearing-test"
-                  className="inline-flex items-center gap-1.5 border border-white bg-white px-3 py-1 text-[12.5px] font-extrabold text-[#0384CE] transition hover:bg-transparent hover:text-white"
-                >
-                  ابدأ الفحص <IconArrow width={13} height={13} />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* BOX 3: Dark Blue (#3156A3) — Opening Hours */}
-          <div className="flex flex-col justify-between bg-[#3156A3] px-6 py-6 lg:px-8 lg:py-6 text-white transition-colors duration-300 hover:brightness-105">
-            <div>
-              <div className="flex items-center justify-between border-b border-white/25 pb-3">
-                <h2 className="text-[19px] lg:text-[20px] font-black text-white tracking-wide">
-                  مواعيد العمل الرسمية
-                </h2>
-                <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-white/15 text-white">
-                  <IconClock width={16} height={16} />
-                </span>
-              </div>
-
-              {/* Exact MediCenter Opening Hours Item List */}
-              <ul className="mt-2 divide-y divide-white/15 text-[13px] lg:text-[13.5px]">
-                <li className="flex items-center justify-between py-1.5">
-                  <span className="text-white/85 font-medium">السبت – الأربعاء</span>
-                  <div className="font-bold text-white" dir="ltr">8:30 AM – 9:00 PM</div>
-                </li>
-                <li className="flex items-center justify-between py-1.5">
-                  <span className="text-white/85 font-medium">الخميس</span>
-                  <div className="font-bold text-white" dir="ltr">8:30 AM – 7:00 PM</div>
-                </li>
-                <li className="flex items-center justify-between py-1.5">
-                  <span className="text-white/85 font-medium">الجمعة</span>
-                  <div className="font-bold text-[#42B3E5]">استشارات وواتساب</div>
-                </li>
-              </ul>
-            </div>
-
-            <div className="mt-3 pt-2.5 border-t border-white/20">
-              <a
-                href={wa("مرحبًا صله تون، أود حجز موعد كشف أو فحص سمع")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 bg-[#42B3E5] py-2 text-[13px] font-extrabold text-white transition hover:bg-white hover:text-[#3156A3]"
-              >
-                <IconChat width={14} height={14} /> حجز موعد كشف عبر واتساب
-              </a>
             </div>
           </div>
         </div>
