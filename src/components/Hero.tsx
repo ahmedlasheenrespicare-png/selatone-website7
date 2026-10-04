@@ -131,35 +131,7 @@ function HeroOriginal() {
         <div className="scrim-b absolute inset-0" />
 
         <div className="relative h-full">
-          {ORIGINAL_SLIDES.map((s, i) => (
-            <div
-              key={s.title}
-              className={`absolute inset-0 flex flex-col justify-center px-6 pb-24 pt-8 transition-all duration-700 sm:px-10 lg:px-14 ${
-                i === index ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
-              }`}
-              aria-hidden={i !== index}
-            >
-              <span className="label on-dark">{s.kicker}</span>
-              <h1 className="mt-3 max-w-[620px] text-[clamp(28px,4.2vw,50px)] font-extrabold leading-[1.4] text-white">
-                <span className="mark-title">{s.title}</span>
-              </h1>
-              <p className="mt-4 max-w-[520px] text-[16px] leading-[1.9] text-white/85">{s.text}</p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <a href={s.href} className="btn btn-brand" tabIndex={i === index ? 0 : -1}>
-                  {s.cta}
-                </a>
-                <a
-                  href={wa("مرحبًا صله تون، أريد الاستفسار عن حلول السمع")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-ghost"
-                  tabIndex={i === index ? 0 : -1}
-                >
-                  <IconChat width={17} height={17} /> تحدث عبر واتساب
-                </a>
-              </div>
-            </div>
-          ))}
+          {ORIGIDES_SLIDES_RENDER()}
         </div>
 
         {/* Controls */}
@@ -198,14 +170,46 @@ function HeroOriginal() {
       </div>
     </section>
   );
+
+  function ORIGIDES_SLIDES_RENDER() {
+    return ORIGINAL_SLIDES.map((s, i) => (
+      <div
+        key={s.title}
+        className={`absolute inset-0 flex flex-col justify-center px-6 pb-24 pt-8 transition-all duration-700 sm:px-10 lg:px-14 ${
+          i === index ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+        }`}
+        aria-hidden={i !== index}
+      >
+        <span className="label on-dark">{s.kicker}</span>
+        <h1 className="mt-3 max-w-[620px] text-[clamp(28px,4.2vw,50px)] font-extrabold leading-[1.4] text-white">
+          <span className="mark-title">{s.title}</span>
+        </h1>
+        <p className="mt-4 max-w-[520px] text-[16px] leading-[1.9] text-white/85">{s.text}</p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <a href={s.href} className="btn btn-brand" tabIndex={i === index ? 0 : -1}>
+            {s.cta}
+          </a>
+          <a
+            href={wa("مرحبًا صله تون، أريد الاستفسار عن حلول السمع")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-ghost"
+            tabIndex={i === index ? 0 : -1}
+          >
+            <IconChat width={17} height={17} /> تحدث عبر واتساب
+          </a>
+        </div>
+      </div>
+    ));
+  }
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (Full Dimension 16:9 Slider + Complete Image Display)
-   - The slide image section maintains its full complete natural dimensions on Mobile & Desktop
-   - 100% full uncropped image visible edge-to-edge
+   2. نموذج MediCenter الطبي الكلاسيكي (Images Behind Text Directly Like Original)
+   - Slide images fill the entire slider background behind text directly (like Original Model)
+   - Texts sit directly over the image with crisp contrast & branding
    - Full-width slide numbers navigation bar with micro font
-   - 3 Bottom Home Boxes float cleanly centered without stretching or cropping the photo
+   - 3 Signature MediCenter Home Boxes cleanly placed underneath
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -260,14 +264,14 @@ function HeroModelMedicenter() {
 
   return (
     <section
-      className="relative w-full bg-[#0d172a] font-sans selection:bg-[#42B3E5] selection:text-white"
+      className="relative w-full bg-[#0a1220] font-sans selection:bg-[#42B3E5] selection:text-white"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
-      {/* 1. SLIDER STAGE WITH FULL NATURAL DIMENSIONS (Preserves Complete Uncropped Image on Mobile & Desktop) */}
-      <div className="relative w-full overflow-hidden aspect-[16/11] sm:aspect-[16/9] md:aspect-[21/10] lg:min-h-[520px] lg:max-h-[580px] flex items-center bg-[#0c1628]">
-        {/* All Slide Images */}
+      {/* 1. SLIDER STAGE: Image Directly Behind Text Like Original Model */}
+      <div className="relative w-full overflow-hidden h-[470px] sm:h-[520px] lg:h-[580px] bg-[#0c1628]">
+        {/* Slide background images (Covering the entire area behind text) */}
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
             key={s.img}
@@ -275,28 +279,28 @@ function HeroModelMedicenter() {
               i === index ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            {/* The Image Rendered in Full Dimensions Without Cropping */}
             <img
               src={s.img}
-              alt={s.titleLine1}
+              alt=""
               className="h-full w-full object-cover object-center"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            {/* 100% Full-surface uniform shading */}
-            <div className="absolute inset-0 bg-[#0c1628]/60" />
+            {/* Scrim and uniform dark shading for optimal contrast & legibility */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0c1628]/90 via-[#0c1628]/65 to-[#0c1628]/35" />
+            <div className="absolute inset-0 bg-[#0c1628]/40" />
           </div>
         ))}
 
-        {/* Foreground Content Box (Classic MediCenter Slider Content) */}
-        <div className="relative z-10 mx-auto w-full max-w-[1370px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-          <div className="max-w-[700px] bg-black/35 backdrop-blur-xs p-4 sm:p-7 rounded-sm border-s-4 border-[#42B3E5]">
-            {/* Tag Badge */}
-            <div className="inline-block bg-[#42B3E5] px-2.5 py-0.5 text-[10px] sm:text-[11px] font-black tracking-wider text-white uppercase shadow-sm">
+        {/* Foreground Text Layer: Sits Directly On Top of Background Image */}
+        <div className="relative h-full mx-auto flex w-full max-w-[1370px] flex-col justify-center px-6 sm:px-10 lg:px-14">
+          <div className="max-w-[700px]">
+            {/* MediCenter Brand Badge */}
+            <span className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[11px] sm:text-[12px] font-black tracking-wider text-white shadow-md uppercase">
               صله تون — حلول السمع الطبية منذ 2014
-            </div>
+            </span>
 
             {/* Main Title */}
-            <h1 className="mt-2.5 sm:mt-3.5 text-[22px] sm:text-[34px] lg:text-[44px] font-black leading-[1.25] text-white tracking-tight drop-shadow-md">
+            <h1 className="mt-4 text-[clamp(28px,4.5vw,52px)] font-black leading-[1.25] text-white tracking-tight drop-shadow-md">
               <span className="block">{current.titleLine1}</span>
               <span className="block text-[#42B3E5] drop-shadow-md">
                 {current.titleLine2}
@@ -304,25 +308,25 @@ function HeroModelMedicenter() {
             </h1>
 
             {/* Subtitle */}
-            <p className="mt-2 sm:mt-3 max-w-[560px] text-[13px] sm:text-[15.5px] leading-[1.7] text-white/95 font-medium drop-shadow-sm line-clamp-3 sm:line-clamp-none">
+            <p className="mt-4 max-w-[560px] text-[15px] sm:text-[17px] leading-[1.8] text-white/95 font-medium drop-shadow-md">
               {current.subtitle}
             </p>
 
             {/* Action Buttons */}
-            <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <div className="mt-7 flex flex-wrap items-center gap-3.5">
               <a
                 href={current.ctaHref}
                 target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
                 rel={current.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 bg-[#42B3E5] px-4 sm:px-6 py-2 sm:py-2.5 text-[13px] sm:text-[14.5px] font-extrabold text-white shadow-lg transition-all hover:bg-white hover:text-[#3156A3]"
+                className="inline-flex items-center gap-2 bg-[#42B3E5] px-6 py-3 text-[14.5px] font-extrabold text-white shadow-xl transition-all hover:bg-white hover:text-[#3156A3]"
               >
-                {current.ctaText} <IconArrow width={15} height={15} />
+                {current.ctaText} <IconArrow width={16} height={16} />
               </a>
               <a
                 href={current.cta2Href}
                 target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
                 rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 border border-white/80 bg-black/30 px-3.5 sm:px-5 py-2 sm:py-2.5 text-[13px] sm:text-[14px] font-bold text-white shadow-md transition-all hover:bg-white hover:text-[#1a2e51]"
+                className="inline-flex items-center gap-2 border-2 border-white bg-black/25 backdrop-blur-xs px-6 py-2.5 text-[14.5px] font-extrabold text-white shadow-lg transition-all hover:bg-white hover:text-[#1a2e51]"
               >
                 {current.cta2Text}
               </a>
