@@ -201,8 +201,9 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (Full-Bleed 100% Canvas Image Covering Whole Hero)
-   - Background slide images fill 100% of the entire hero including behind bottom cards
+   2. نموذج MediCenter الطبي الكلاسيكي (Uniform 100% Full Shading)
+   - Background slide images covered with identical, uniform shading across 100% of the image
+   - Full-bleed coverage spanning entire hero section behind bottom cards
    - Slide tabs (01, 02, 03) span the FULL width of the hero from edge to edge
    - 3 Bottom Home Boxes float centered over the background image (< Hero full width)
    - Total height matches HeroOriginal (min-h-[580px])
@@ -260,12 +261,12 @@ function HeroModelMedicenter() {
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-slate-900 font-sans selection:bg-[#42B3E5] selection:text-white min-h-[640px] lg:min-h-[680px] flex flex-col justify-between"
+      className="relative w-full overflow-hidden bg-[#111e38] font-sans selection:bg-[#42B3E5] selection:text-white min-h-[640px] lg:min-h-[680px] flex flex-col justify-between"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
-      {/* 1. FULL-BLEED BACKGROUND SLIDE IMAGES (Covers 100% of Entire Hero Section from Top to Bottom) */}
+      {/* 1. FULL-BLEED BACKGROUND SLIDE IMAGES WITH UNIFORM 100% SHADING */}
       <div className="absolute inset-0 z-0 h-full w-full pointer-events-none">
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
@@ -277,11 +278,11 @@ function HeroModelMedicenter() {
             <img
               src={s.img}
               alt=""
-              className="h-full w-full object-cover object-center filter-none brightness-100 contrast-105"
+              className="h-full w-full object-cover object-center filter-none brightness-100"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            {/* Subtle soft gradient on the text side only for clear readability */}
-            <div className="absolute inset-y-0 start-0 w-full sm:w-[55%] bg-gradient-to-r from-black/50 via-black/20 to-transparent" />
+            {/* UNIFORM FULL-SURFACE SHADING: Same consistent overlay across every pixel of the image */}
+            <div className="absolute inset-0 bg-[#0c1628]/60 backdrop-brightness-95" />
           </div>
         ))}
       </div>
@@ -296,7 +297,7 @@ function HeroModelMedicenter() {
 
           {/* Main Title */}
           <h1
-            className="mt-3.5 text-[28px] sm:text-[38px] lg:text-[46px] font-black leading-[1.2] text-white tracking-tight drop-shadow-lg"
+            className="mt-3.5 text-[28px] sm:text-[38px] lg:text-[46px] font-black leading-[1.2] text-white tracking-tight drop-shadow-md"
           >
             <span className="block">{current.titleLine1}</span>
             <span className="block text-[#42B3E5] drop-shadow-md">
@@ -306,7 +307,7 @@ function HeroModelMedicenter() {
 
           {/* Subtitle */}
           <p
-            className="mt-3.5 max-w-[580px] text-[14.5px] sm:text-[16.5px] leading-[1.8] text-white font-medium drop-shadow-md"
+            className="mt-3.5 max-w-[580px] text-[14.5px] sm:text-[16.5px] leading-[1.8] text-white/95 font-medium drop-shadow-md"
           >
             {current.subtitle}
           </p>
