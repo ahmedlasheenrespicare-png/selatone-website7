@@ -201,10 +201,10 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter: قسم الهيرو المستقل + قسم الكروت المترابط معه
+   2. نموذج MediCenter: شريط الأرقام وقسم الكروت الثلاثة بالخلفية البيضاء
    - Section A: Independent Full-Height Slider Stage
-   - Section B: Connected Slide Numbers Navigation Bar (01, 02, 03)
-   - Section C: Connected Signature 3 Home Boxes
+   - Section B: Interactive Numbers Bar (Pure White Background bg-white)
+   - Section C: 3 Home Boxes Section (Pure White Background bg-white)
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -258,9 +258,9 @@ function HeroModelMedicenter() {
   const current = MEDICENTER_SLIDES[index];
 
   return (
-    <div className="w-full font-sans selection:bg-[#42B3E5] selection:text-white">
+    <div className="w-full font-sans selection:bg-[#42B3E5] selection:text-white bg-white">
       {/* =========================================================================
-         SECTION A: INDEPENDENT HERO SLIDER STAGE (Spacious, Full Dimensions, No clutter)
+         SECTION A: INDEPENDENT HERO SLIDER STAGE
       ========================================================================= */}
       <section
         className="relative w-full overflow-hidden bg-[#0c1628] h-[460px] sm:h-[520px] lg:h-[580px] flex items-center"
@@ -282,7 +282,7 @@ function HeroModelMedicenter() {
               className="h-full w-full object-cover object-center"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            {/* Dark Scrim overlay for high legibility */}
+            {/* Scrim overlay for high legibility */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0c1628]/95 via-[#0c1628]/65 to-[#0c1628]/35" />
             <div className="absolute inset-0 bg-[#0c1628]/30" />
           </div>
@@ -351,29 +351,29 @@ function HeroModelMedicenter() {
       </section>
 
       {/* =========================================================================
-         SECTION B: CONNECTED NAVIGATION TABS (Interactive Bridge linked to Slider)
+         SECTION B: INTERACTIVE NUMBERS NAVIGATION BAR (WHITE BACKGROUND bg-white)
       ========================================================================= */}
-      <div className="relative z-20 w-full bg-[#0a1220] border-y border-white/15">
+      <div className="relative z-20 w-full bg-white border-y border-gray-200 shadow-sm">
         <div className="grid grid-cols-3 w-full">
           {MEDICENTER_SLIDES.map((s, i) => (
             <button
               key={i}
               onClick={() => go(i)}
               aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-              className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-6 py-2.5 sm:py-3 text-right transition-all border-e border-white/10 last:border-e-0 ${
+              className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-6 py-2.5 sm:py-3 text-right transition-all border-e border-gray-200 last:border-e-0 ${
                 i === index
-                  ? "bg-[#42B3E5]/25 text-white"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
+                  ? "bg-sky-50/60 text-[#111e38]"
+                  : "bg-white text-gray-600 hover:text-[#0384CE] hover:bg-gray-50/80"
               }`}
             >
               {/* Active top indicator bar */}
               {i === index && (
                 <span className="absolute top-0 inset-x-0 h-[3px] bg-[#42B3E5]" />
               )}
-              <span className="font-mono text-[11px] sm:text-[13px] font-black text-[#42B3E5] tracking-tighter">
+              <span className="font-mono text-[12px] sm:text-[14px] font-black text-[#42B3E5] tracking-tighter">
                 0{i + 1}
               </span>
-              <span className="hidden sm:inline-block text-[11px] sm:text-[12px] font-bold truncate text-white/90 tracking-tight">
+              <span className="hidden sm:inline-block text-[11.5px] sm:text-[13px] font-bold truncate text-[#111e38] tracking-tight">
                 {s.titleLine1}
               </span>
             </button>
@@ -382,10 +382,10 @@ function HeroModelMedicenter() {
       </div>
 
       {/* =========================================================================
-         SECTION C: INDEPENDENT CONNECTED HOME BOXES SECTION
+         SECTION C: 3 HOME BOXES SECTION (WHITE BACKGROUND bg-white)
       ========================================================================= */}
-      <section className="relative w-full bg-[#f8f9fc] dark:bg-[#0c1628] px-3 sm:px-6 lg:px-12 py-8 lg:py-12 border-b border-gray-200/50">
-        <div className="mx-auto max-w-[1240px] shadow-2xl rounded-md overflow-hidden">
+      <section className="relative w-full bg-white px-3 sm:px-6 lg:px-12 py-8 lg:py-12 border-b border-gray-100">
+        <div className="mx-auto max-w-[1240px] shadow-xl rounded-md overflow-hidden">
           {/* Responsive Grid: 1 column on Mobile, 3 columns on Tablet & Desktop */}
           <div className="grid grid-cols-1 md:grid-cols-3">
             {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
