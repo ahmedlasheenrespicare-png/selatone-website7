@@ -201,7 +201,8 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (MediCenter Full-Width Tabs Replica)
+   2. نموذج MediCenter الطبي الكلاسيكي (Bright Crisp Clear Background Images)
+   - Background images are 100% bright, unshaded, and crystal clear
    - Slide tabs (01, 02, 03) span the FULL width of the hero from edge to edge
    - 3 Bottom Home Boxes centered with margins (< Hero full width)
    - Matches the total height of HeroOriginal (min-h-[580px])
@@ -264,9 +265,9 @@ function HeroModelMedicenter() {
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
-      {/* 1. FULL-WIDTH SLIDER */}
-      <div className="relative w-full h-[390px] sm:h-[410px] lg:h-[400px] overflow-hidden bg-[#13223f]">
-        {/* Background Slide Images with Crossfade */}
+      {/* 1. FULL-WIDTH SLIDER (Clear & Bright Background Images) */}
+      <div className="relative w-full h-[390px] sm:h-[410px] lg:h-[400px] overflow-hidden bg-slate-900">
+        {/* Background Slide Images with Crisp Clarity and Zero Dark Masking */}
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
             key={s.img}
@@ -277,42 +278,39 @@ function HeroModelMedicenter() {
             <img
               src={s.img}
               alt=""
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full object-cover object-center filter-none brightness-100 contrast-105"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            {/* MediCenter Signature Gradient Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#111e38]/95 via-[#1a2e51]/80 to-transparent lg:max-w-[65%]" />
-            <div className="absolute inset-0 bg-black/25" />
           </div>
         ))}
 
-        {/* Slide Content (Text Box aligned with website container) */}
+        {/* Slide Content with Glass Badge & Text Shadow for 100% Readability while Image Remains Fully Visible */}
         <div className="relative z-20 mx-auto flex h-full max-w-[1370px] flex-col justify-center px-4 sm:px-6 lg:px-8 pb-12">
-          <div className="max-w-[700px]">
+          <div className="max-w-[700px] rounded-lg bg-[#111e38]/70 backdrop-blur-md p-5 sm:p-7 shadow-2xl border border-white/20">
             {/* Tag Badge */}
             <div className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[11.5px] font-black tracking-wider text-white shadow-sm uppercase">
               صله تون — حلول السمع الطبية منذ 2014
             </div>
 
-            {/* Main Title (Medicenter 72px styled title) */}
+            {/* Main Title */}
             <h1
-              className="mt-2.5 text-[26px] sm:text-[34px] lg:text-[40px] font-black leading-[1.2] text-white tracking-tight"
-              style={{ textShadow: "0 2px 4px rgba(0,0,0,0.6)" }}
+              className="mt-2.5 text-[24px] sm:text-[32px] lg:text-[38px] font-black leading-[1.2] text-white tracking-tight"
+              style={{ textShadow: "0 2px 5px rgba(0,0,0,0.8)" }}
             >
               <span className="block">{current.titleLine1}</span>
-              <span className="block text-[#42B3E5] drop-shadow">{current.titleLine2}</span>
+              <span className="block text-[#42B3E5]">{current.titleLine2}</span>
             </h1>
 
             {/* Subtitle */}
             <p
-              className="mt-2.5 max-w-[560px] text-[14px] sm:text-[15.5px] leading-[1.7] text-white/90 font-medium"
-              style={{ textShadow: "0 1px 2px rgba(0,0,0,0.7)" }}
+              className="mt-2.5 max-w-[560px] text-[13.5px] sm:text-[15px] leading-[1.7] text-white/95 font-medium"
+              style={{ textShadow: "0 1px 3px rgba(0,0,0,0.85)" }}
             >
               {current.subtitle}
             </p>
 
             {/* Action Buttons */}
-            <div className="mt-5 flex flex-wrap items-center gap-3">
+            <div className="mt-4 flex flex-wrap items-center gap-3">
               <a
                 href={current.ctaHref}
                 target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
@@ -325,7 +323,7 @@ function HeroModelMedicenter() {
                 href={current.cta2Href}
                 target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
                 rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 border-2 border-white/90 bg-black/25 backdrop-blur-xs px-5 py-2 text-[14px] font-extrabold text-white transition-all hover:bg-white hover:text-[#1a2e51]"
+                className="inline-flex items-center gap-2 border-2 border-white bg-black/40 backdrop-blur-xs px-5 py-2 text-[14px] font-extrabold text-white transition-all hover:bg-white hover:text-[#1a2e51]"
               >
                 {current.cta2Text}
               </a>
@@ -334,7 +332,7 @@ function HeroModelMedicenter() {
         </div>
 
         {/* FULL-WIDTH NUMBERED NAVIGATION TABS (01, 02, 03 SPANNING 100% OF THE HERO WIDTH) */}
-        <div className="absolute bottom-0 inset-x-0 z-30 w-full bg-black/40 backdrop-blur-xs border-t border-white/20">
+        <div className="absolute bottom-0 inset-x-0 z-30 w-full bg-[#111e38]/85 backdrop-blur-md border-t border-white/25">
           <div className="grid grid-cols-3 w-full">
             {MEDICENTER_SLIDES.map((s, i) => (
               <button
@@ -344,7 +342,7 @@ function HeroModelMedicenter() {
                 className={`group relative flex items-center justify-center sm:justify-start gap-2.5 px-3 sm:px-6 py-2.5 text-right transition-all border-e border-white/15 last:border-e-0 ${
                   i === index
                     ? "bg-white/20 text-white"
-                    : "text-white/75 hover:text-white hover:bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
                 {/* Active indicator bar spanning the full width of the tab */}
@@ -354,7 +352,7 @@ function HeroModelMedicenter() {
                 <span className="font-mono text-[15px] sm:text-[18px] font-black text-[#42B3E5]">
                   0{i + 1}
                 </span>
-                <span className="hidden sm:inline-block text-[13px] font-bold truncate">
+                <span className="hidden sm:inline-block text-[13px] font-bold truncate text-white">
                   {s.titleLine1}
                 </span>
               </button>
