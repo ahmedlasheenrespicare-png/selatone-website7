@@ -201,12 +201,11 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (Smallest Micro Font Numbers Bar)
-   - Micro compact font for slide numbers bar (text-[10px] / text-[11px])
-   - Full-bleed coverage spanning entire hero section behind bottom cards
-   - Slide tabs (01, 02, 03) span the FULL width of the hero from edge to edge
-   - 3 Bottom Home Boxes float centered over the background image (< Hero full width)
-   - Total height matches HeroOriginal (min-h-[580px])
+   2. نموذج MediCenter الطبي الكلاسيكي (Full Complete Image Visibility)
+   - Images appear 100% fully visible without cropping on desktop and mobile
+   - Ambient blurred background fill + full-aspect central image
+   - Slide tabs (01, 02, 03) span the FULL width with micro typography
+   - 3 Bottom Home Boxes float centered over the background image
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -261,13 +260,13 @@ function HeroModelMedicenter() {
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#111e38] font-sans selection:bg-[#42B3E5] selection:text-white min-h-[640px] lg:min-h-[680px] flex flex-col justify-between"
+      className="relative w-full overflow-hidden bg-[#0c1628] font-sans selection:bg-[#42B3E5] selection:text-white min-h-[640px] lg:min-h-[680px] flex flex-col justify-between"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
-      {/* 1. FULL-BLEED BACKGROUND SLIDE IMAGES WITH UNIFORM 100% SHADING */}
-      <div className="absolute inset-0 z-0 h-full w-full pointer-events-none">
+      {/* 1. FULL-VISIBILITY BACKGROUND SLIDE IMAGES (Complete Image Shown on Desktop & Mobile) */}
+      <div className="absolute inset-0 z-0 h-full w-full pointer-events-none overflow-hidden">
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
             key={s.img}
@@ -275,14 +274,26 @@ function HeroModelMedicenter() {
               i === index ? "opacity-100" : "opacity-0"
             }`}
           >
+            {/* Layer A: Ambient blurred background fill to prevent any empty letterboxing */}
             <img
               src={s.img}
               alt=""
-              className="h-full w-full object-cover object-center filter-none brightness-100"
-              loading={i === 0 ? "eager" : "lazy"}
+              className="absolute inset-0 h-full w-full object-cover object-center scale-110 blur-xl opacity-35 brightness-75"
+              aria-hidden="true"
             />
-            {/* UNIFORM FULL-SURFACE SHADING */}
-            <div className="absolute inset-0 bg-[#0c1628]/60 backdrop-brightness-95" />
+
+            {/* Layer B: The Full Uncropped Image (Fully visible in true aspect ratio on both desktop & mobile) */}
+            <div className="relative h-full w-full flex items-center justify-center sm:justify-end">
+              <img
+                src={s.img}
+                alt=""
+                className="h-full w-full object-contain sm:object-cover sm:object-right-top lg:object-cover lg:object-center brightness-100 transition-transform duration-700"
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            </div>
+
+            {/* Layer C: Uniform Consistent Shading */}
+            <div className="absolute inset-0 bg-[#0c1628]/55" />
           </div>
         ))}
       </div>
@@ -334,7 +345,7 @@ function HeroModelMedicenter() {
         </div>
       </div>
 
-      {/* 3. MIDDLE: FULL-WIDTH NUMBERED NAVIGATION TABS (SMALLEST MICRO FONT SIZE text-[10px]/text-[11px]) */}
+      {/* 3. MIDDLE: FULL-WIDTH NUMBERED NAVIGATION TABS (Micro Typography) */}
       <div className="relative z-10 w-full bg-black/45 backdrop-blur-md border-y border-white/15">
         <div className="grid grid-cols-3 w-full">
           {MEDICENTER_SLIDES.map((s, i) => (
@@ -363,7 +374,7 @@ function HeroModelMedicenter() {
         </div>
       </div>
 
-      {/* 4. BOTTOM AREA: SIGNATURE 3 MEDICENTER HOME BOXES (Centered Floating Cards with Visible Background All Around) */}
+      {/* 4. BOTTOM AREA: SIGNATURE 3 MEDICENTER HOME BOXES (Centered Floating Cards) */}
       <div className="relative z-10 w-full px-3 sm:px-6 lg:px-12 pt-4 pb-6 lg:pb-8">
         <div className="mx-auto max-w-[1180px] shadow-2xl rounded-md overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-3">
