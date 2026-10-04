@@ -201,10 +201,10 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter: شريط الأرقام وقسم الكروت الثلاثة بالخلفية البيضاء
-   - Section A: Independent Full-Height Slider Stage
-   - Section B: Interactive Numbers Bar (Pure White Background bg-white)
-   - Section C: 3 Home Boxes Section (Pure White Background bg-white)
+   2. نموذج MediCenter: قسم الكروت الثلاثة عائم على قسم الهيرو
+   - Section A: Spacious Hero Slider Stage (with room for floating cards)
+   - Section B: Connected Numbers Bar
+   - Section C: Signature 3 Home Boxes floating over the Hero with negative margin
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -260,10 +260,10 @@ function HeroModelMedicenter() {
   return (
     <div className="w-full font-sans selection:bg-[#42B3E5] selection:text-white bg-white">
       {/* =========================================================================
-         SECTION A: INDEPENDENT HERO SLIDER STAGE
+         SECTION A: HERO SLIDER STAGE (Extra bottom padding to allow floating cards)
       ========================================================================= */}
       <section
-        className="relative w-full overflow-hidden bg-[#0c1628] h-[460px] sm:h-[520px] lg:h-[580px] flex items-center"
+        className="relative w-full overflow-hidden bg-[#0c1628] h-[500px] sm:h-[560px] lg:h-[620px] flex items-center"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         aria-label="سلايدر صله تون الطبي"
@@ -282,14 +282,14 @@ function HeroModelMedicenter() {
               className="h-full w-full object-cover object-center"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            {/* Scrim overlay for high legibility */}
+            {/* Scrim overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0c1628]/95 via-[#0c1628]/65 to-[#0c1628]/35" />
             <div className="absolute inset-0 bg-[#0c1628]/30" />
           </div>
         ))}
 
         {/* Foreground Slider Content */}
-        <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-6 sm:px-10 lg:px-14">
+        <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-6 sm:px-10 lg:px-14 pb-12 sm:pb-16">
           <div className="max-w-[720px]">
             {/* Tag Badge */}
             <span className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[11px] sm:text-[12px] font-black tracking-wider text-white shadow-md uppercase">
@@ -332,7 +332,7 @@ function HeroModelMedicenter() {
         </div>
 
         {/* Prev / Next Slider Arrows */}
-        <div className="absolute bottom-4 end-4 sm:end-8 z-10 flex items-center gap-1.5">
+        <div className="absolute top-8 end-4 sm:end-8 z-10 flex items-center gap-1.5">
           <button
             onClick={() => go(index - 1)}
             className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-black/40 text-white backdrop-blur-sm border border-white/20 transition hover:bg-[#42B3E5]"
@@ -351,7 +351,7 @@ function HeroModelMedicenter() {
       </section>
 
       {/* =========================================================================
-         SECTION B: INTERACTIVE NUMBERS NAVIGATION BAR (WHITE BACKGROUND bg-white)
+         SECTION B: INTERACTIVE NUMBERS NAVIGATION BAR
       ========================================================================= */}
       <div className="relative z-20 w-full bg-white border-y border-gray-200 shadow-sm">
         <div className="grid grid-cols-3 w-full">
@@ -382,10 +382,10 @@ function HeroModelMedicenter() {
       </div>
 
       {/* =========================================================================
-         SECTION C: 3 HOME BOXES SECTION (WHITE BACKGROUND bg-white)
+         SECTION C: THE 3 HOME BOXES FLOATING OVER THE HERO (-mt-10 sm:-mt-14 lg:-mt-16)
       ========================================================================= */}
-      <section className="relative w-full bg-white px-3 sm:px-6 lg:px-12 py-8 lg:py-12 border-b border-gray-100">
-        <div className="mx-auto max-w-[1240px] shadow-xl rounded-md overflow-hidden">
+      <section className="relative z-30 -mt-10 sm:-mt-14 lg:-mt-16 px-3 sm:px-6 lg:px-12 pb-8 sm:pb-12 bg-transparent">
+        <div className="mx-auto max-w-[1240px] shadow-[0_20px_50px_rgba(0,0,0,0.22)] rounded-md overflow-hidden">
           {/* Responsive Grid: 1 column on Mobile, 3 columns on Tablet & Desktop */}
           <div className="grid grid-cols-1 md:grid-cols-3">
             {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
