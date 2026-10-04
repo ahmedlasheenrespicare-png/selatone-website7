@@ -201,12 +201,10 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكامل المستجيب (Exact Responsive Architecture)
-   - Matches official MediCenter responsive breakpoints:
-     * Desktop (> 1009px): Full slider (600px) + 3 boxes side-by-side (3 cols)
-     * Tablet (768px - 1009px): Medium slider (500px) + 3 boxes (3 cols)
-     * Mobile (< 768px): Compact slider (320px) + 3 boxes stacked vertically (1 col)
-     * Small Mobile (< 480px): Streamlined slider (240px) + 3 boxes stacked
+   2. نموذج MediCenter الطبي الكامل (NO Black Backgrounds - Full Bleed Seamless View)
+   - Background slide images run seamlessly behind the whole section (100% full-bleed)
+   - No solid black background anywhere: Navigation bar is transparent, Cards area is transparent
+   - Cards float cleanly with their rich signature MediCenter colors
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -261,21 +259,18 @@ function HeroModelMedicenter() {
 
   return (
     <section
-      className="relative w-full bg-[#0a1220] font-sans selection:bg-[#42B3E5] selection:text-white"
+      className="relative w-full overflow-hidden bg-[#0c1628] font-sans selection:bg-[#42B3E5] selection:text-white min-h-[640px] lg:min-h-[680px] flex flex-col justify-between"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
-      {/* =========================================================================
-         STAGE 1: SLIDER SECTION (Responsive heights: 290px <480px, 360px <768px, 480px md, 580px lg)
-      ========================================================================= */}
-      <div className="relative w-full overflow-hidden h-[290px] sm:h-[360px] md:h-[480px] lg:h-[580px] bg-[#0c1628]">
-        {/* Slide background images (Covering the entire slider stage) */}
+      {/* 1. SEAMLESS BACKGROUND SLIDE IMAGES (Runs continuously behind the entire Hero section) */}
+      <div className="absolute inset-0 z-0 h-full w-full pointer-events-none">
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
             key={s.img}
             className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ease-in-out ${
-              i === index ? "opacity-100" : "opacity-0 pointer-events-none"
+              i === index ? "opacity-100" : "opacity-0"
             }`}
           >
             <img
@@ -284,70 +279,68 @@ function HeroModelMedicenter() {
               className="h-full w-full object-cover object-center"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            {/* Scrim & Uniform Shading */}
+            {/* Scrim & Uniform Shading (No solid black) */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0c1628]/90 via-[#0c1628]/60 to-[#0c1628]/35" />
-            <div className="absolute inset-0 bg-[#0c1628]/40" />
+            <div className="absolute inset-0 bg-[#0c1628]/35" />
           </div>
         ))}
+      </div>
 
-        {/* Foreground Content: Responsive Typography Matching MediCenter Template */}
-        <div className="relative h-full mx-auto flex w-full max-w-[1370px] flex-col justify-center px-4 sm:px-8 lg:px-14">
-          <div className="max-w-[720px]">
-            {/* Badge */}
-            <span className="inline-block bg-[#42B3E5] px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11.5px] font-black tracking-wider text-white uppercase shadow-sm">
-              صله تون — حلول السمع الطبية منذ 2014
+      {/* 2. FOREGROUND TEXT CONTENT: Directly on top of background image */}
+      <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-4 sm:px-8 lg:px-14 pt-10 sm:pt-14 pb-5 sm:pb-7">
+        <div className="max-w-[720px]">
+          {/* Badge */}
+          <span className="inline-block bg-[#42B3E5] px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11.5px] font-black tracking-wider text-white uppercase shadow-sm">
+            صله تون — حلول السمع الطبية منذ 2014
+          </span>
+
+          {/* Responsive Main Title */}
+          <h1 className="mt-2.5 sm:mt-3.5 text-[22px] sm:text-[34px] md:text-[46px] lg:text-[56px] font-black leading-[1.2] text-white tracking-tight drop-shadow-md">
+            <span className="block">{current.titleLine1}</span>
+            <span className="block text-[#42B3E5] drop-shadow-md">
+              {current.titleLine2}
             </span>
+          </h1>
 
-            {/* Responsive Main Title: 24px on <480px, 36px on <768px, 56px on md, 68px on lg */}
-            <h1 className="mt-2 sm:mt-3.5 text-[22px] sm:text-[34px] md:text-[46px] lg:text-[56px] font-black leading-[1.2] text-white tracking-tight drop-shadow-md">
-              <span className="block">{current.titleLine1}</span>
-              <span className="block text-[#42B3E5] drop-shadow-md">
-                {current.titleLine2}
-              </span>
-            </h1>
+          {/* Subtitle */}
+          <p className="mt-2.5 sm:mt-3.5 max-w-[560px] text-[13px] sm:text-[15px] md:text-[16.5px] leading-[1.6] sm:leading-[1.8] text-white/95 font-medium drop-shadow-sm line-clamp-2 sm:line-clamp-none">
+            {current.subtitle}
+          </p>
 
-            {/* Responsive Subtitle */}
-            <p className="mt-2 sm:mt-3.5 max-w-[560px] text-[12.5px] sm:text-[15px] md:text-[16.5px] leading-[1.6] sm:leading-[1.8] text-white/95 font-medium drop-shadow-sm line-clamp-2 sm:line-clamp-none">
-              {current.subtitle}
-            </p>
-
-            {/* Action Buttons */}
-            <div className="mt-3.5 sm:mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3.5">
-              <a
-                href={current.ctaHref}
-                target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
-                rel={current.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 bg-[#42B3E5] px-4 sm:px-6 py-2 sm:py-3 text-[12.5px] sm:text-[14.5px] font-extrabold text-white shadow-xl transition-all hover:bg-white hover:text-[#3156A3]"
-              >
-                {current.ctaText} <IconArrow width={15} height={15} />
-              </a>
-              <a
-                href={current.cta2Href}
-                target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
-                rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 border border-white sm:border-2 bg-black/25 backdrop-blur-xs px-3.5 sm:px-5 py-1.5 sm:py-2.5 text-[12px] sm:text-[14px] font-bold text-white shadow-lg transition-all hover:bg-white hover:text-[#1a2e51]"
-              >
-                {current.cta2Text}
-              </a>
-            </div>
+          {/* Action Buttons */}
+          <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3.5">
+            <a
+              href={current.ctaHref}
+              target={current.ctaHref.startsWith("http") ? "_blank" : undefined}
+              rel={current.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center gap-2 bg-[#42B3E5] px-4 sm:px-6 py-2 sm:py-3 text-[13px] sm:text-[14.5px] font-extrabold text-white shadow-xl transition-all hover:bg-white hover:text-[#3156A3]"
+            >
+              {current.ctaText} <IconArrow width={15} height={15} />
+            </a>
+            <a
+              href={current.cta2Href}
+              target={current.cta2Href.startsWith("http") ? "_blank" : undefined}
+              rel={current.cta2Href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center gap-2 border border-white sm:border-2 bg-black/25 backdrop-blur-xs px-3.5 sm:px-5 py-1.5 sm:py-2.5 text-[12.5px] sm:text-[14px] font-bold text-white shadow-lg transition-all hover:bg-white hover:text-[#1a2e51]"
+            >
+              {current.cta2Text}
+            </a>
           </div>
         </div>
       </div>
 
-      {/* =========================================================================
-         STAGE 2: FULL-WIDTH SLIDER NAVIGATION BAR (01, 02, 03)
-      ========================================================================= */}
-      <div className="relative z-10 w-full bg-[#0a1220] border-y border-white/15">
+      {/* 3. TRANSPARENT NAVIGATION TABS (No black background, image shows behind) */}
+      <div className="relative z-10 w-full bg-white/10 backdrop-blur-xs border-y border-white/20">
         <div className="grid grid-cols-3 w-full">
           {MEDICENTER_SLIDES.map((s, i) => (
             <button
               key={i}
               onClick={() => go(i)}
               aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-              className={`group relative flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2.5 px-2 sm:px-5 py-2 sm:py-2.5 text-right transition-all border-e border-white/10 last:border-e-0 ${
+              className={`group relative flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2.5 px-2 sm:px-5 py-2 sm:py-2.5 text-right transition-all border-e border-white/15 last:border-e-0 ${
                 i === index
-                  ? "bg-[#42B3E5]/25 text-white"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
+                  ? "bg-white/25 text-white shadow-inner"
+                  : "text-white/75 hover:text-white hover:bg-white/15"
               }`}
             >
               {/* Active top indicator bar */}
@@ -357,7 +350,7 @@ function HeroModelMedicenter() {
               <span className="font-mono text-[11px] sm:text-[12px] font-black text-[#42B3E5] tracking-tighter">
                 0{i + 1}
               </span>
-              <span className="hidden sm:inline-block text-[10.5px] sm:text-[11.5px] font-semibold truncate text-white/90 tracking-tight">
+              <span className="hidden sm:inline-block text-[10.5px] sm:text-[11.5px] font-semibold truncate text-white/95 tracking-tight">
                 {s.titleLine1}
               </span>
             </button>
@@ -365,10 +358,8 @@ function HeroModelMedicenter() {
         </div>
       </div>
 
-      {/* =========================================================================
-         STAGE 3: THE 3 MEDICENTER HOME BOXES (Responsive: 1 Col on Mobile, 3 Cols on Tablet/Desktop)
-      ========================================================================= */}
-      <div className="relative z-10 w-full px-3 sm:px-6 lg:px-12 py-5 sm:py-7 lg:py-8 bg-[#0c1628]">
+      {/* 4. THE 3 MEDICENTER HOME BOXES (Transparent Container - No black background behind) */}
+      <div className="relative z-10 w-full px-3 sm:px-6 lg:px-12 py-5 sm:py-6 lg:py-8 bg-transparent">
         <div className="mx-auto max-w-[1180px] shadow-2xl rounded-md overflow-hidden">
           {/* Responsive Grid: 1 column on Mobile (< 768px), 3 columns on Tablet/Desktop (>= 768px) */}
           <div className="grid grid-cols-1 md:grid-cols-3">
