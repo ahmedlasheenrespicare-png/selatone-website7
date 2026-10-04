@@ -7,17 +7,200 @@ import {
   IconPhone,
   IconShield,
   IconEar,
-  IconWrench,
-  IconBattery,
-  IconCalendarCheck,
   IconClock,
-  IconStar,
 } from "./Icons";
-import { IMG, PHONE_DISPLAY, PHONE_TEL, wa, openWa, inputCls } from "../data";
+import { IMG, PHONE_DISPLAY, PHONE_TEL, wa } from "../data";
 
 /* =========================================================================
-   MODEL MEDICENTER: Exact MediCenter Medical Theme Hero Architecture
-   (نموذج ميدي سنتر: تصميم ثيم MediCenter الطبي الكلاسيكي الشهير)
+   1. النموذج الأصلي لموقع صله تون (Original Hero Model)
+========================================================================= */
+const ORIGINAL_SLIDES = [
+  {
+    img: IMG.hero1,
+    kicker: "ابدأ بالاطمئنان",
+    title: "اختبر سمعك في دقيقتين",
+    text: "أجب عن خمسة أسئلة قصيرة واحصل على نتيجة استرشادية تساعدك على معرفة الخطوة التالية.",
+    cta: "ابدأ الاختبار",
+    href: "#hearing-test",
+  },
+  {
+    img: IMG.hero2,
+    kicker: "اختيار أكثر وضوحًا",
+    title: "اعثر على المعين الأقرب لاحتياجك",
+    text: "استخدم مساعد الاختيار للتعرف على الفئة الأقرب لتفضيلاتك، ثم ناقش النتيجة مع متخصص.",
+    cta: "افتح مساعد الاختيار",
+    href: "#hearing-finder",
+  },
+  {
+    img: IMG.hero3,
+    kicker: "دعم ما بعد البيع",
+    title: "صيانة وبرمجة بخطوات أسهل",
+    text: "صف المشكلة ونوع الجهاز والعلامة التجارية، وأرسل طلب الصيانة مباشرة عبر واتساب.",
+    cta: "اطلب صيانة",
+    href: "#maintenance",
+  },
+  {
+    img: IMG.hero4,
+    kicker: "فرص وخدمات مميزة",
+    title: "اسأل عن العروض الحالية",
+    text: "تعرف على العروض المتاحة للتقييم والصيانة والبطاريات دون أسعار أو خصومات غير مؤكدة.",
+    cta: "اعرف العروض",
+    href: "#offers",
+  },
+];
+
+const ORIGINAL_BOXES = [
+  {
+    title: "اختبر سمعك",
+    text: "خمسة أسئلة قصيرة تعطيك نتيجة استرشادية في دقيقتين، دون أي التزام.",
+    cta: "ابدأ الاختبار",
+    href: "#hearing-test",
+  },
+  {
+    title: "صيانة المعين السمعي",
+    text: "صف العطل وأرسل الطلب مباشرة عبر واتساب ليساعدك الفريق بصورة أسرع.",
+    cta: "اطلب الصيانة",
+    href: "#maintenance",
+  },
+];
+
+function HeroOriginal() {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const go = useCallback((next: number) => setIndex((next + ORIGINAL_SLIDES.length) % ORIGINAL_SLIDES.length), []);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % ORIGINAL_SLIDES.length), 6500);
+    return () => window.clearInterval(id);
+  }, [paused]);
+
+  return (
+    <section
+      className="grid bg-navy lg:grid-cols-[350px_1fr]"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      aria-label="النموذج الأصلي — خدمات صله تون"
+    >
+      <div className="order-2 flex flex-col justify-center gap-px bg-white/15 px-6 py-8 lg:order-1 lg:px-8 lg:py-10">
+        {ORIGINAL_BOXES.map((b) => (
+          <div key={b.title} className="bg-navy py-6">
+            <div className="flex items-start gap-4">
+              <span className="mt-4 hidden h-px w-8 shrink-0 bg-sky sm:block" />
+              <div>
+                <h2 className="text-[22px] font-bold leading-tight text-white">{b.title}</h2>
+                <p className="pt-2 text-[14.5px] leading-[1.8] text-white/80">{b.text}</p>
+                <a
+                  href={b.href}
+                  className="mt-3 inline-flex items-center gap-2 text-[14px] font-bold text-sky transition hover:gap-3.5 hover:text-white"
+                >
+                  {b.cta} <IconArrow width={16} height={16} />
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+        <div className="bg-navy pt-6">
+          <div className="border-t border-white/15 pt-6">
+            <p className="text-[13px] font-bold text-white/60">للاستفسار والحجز</p>
+            <a
+              href={`tel:${PHONE_TEL}`}
+              className="mt-1 block text-[28px] font-extrabold text-sky tabular-nums transition hover:text-white"
+            >
+              <span dir="ltr" className="inline-block">
+                {PHONE_DISPLAY}
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative order-1 h-[470px] overflow-hidden bg-ink sm:h-[520px] lg:order-2 lg:h-auto lg:min-h-[580px]">
+        {ORIGINAL_SLIDES.map((s, i) => (
+          <div key={s.img} className="absolute inset-0">
+            <img
+              src={s.img}
+              alt=""
+              className={`slide-media h-full w-full object-cover ${i === index ? "is-active" : ""}`}
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        ))}
+        <div className="scrim-l absolute inset-0" />
+        <div className="scrim-b absolute inset-0" />
+
+        <div className="relative h-full">
+          {ORIGINAL_SLIDES.map((s, i) => (
+            <div
+              key={s.title}
+              className={`absolute inset-0 flex flex-col justify-center px-6 pb-24 pt-8 transition-all duration-700 sm:px-10 lg:px-14 ${
+                i === index ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+              }`}
+              aria-hidden={i !== index}
+            >
+              <span className="label on-dark">{s.kicker}</span>
+              <h1 className="mt-3 max-w-[620px] text-[clamp(28px,4.2vw,50px)] font-extrabold leading-[1.4] text-white">
+                <span className="mark-title">{s.title}</span>
+              </h1>
+              <p className="mt-4 max-w-[520px] text-[16px] leading-[1.9] text-white/85">{s.text}</p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a href={s.href} className="btn btn-brand" tabIndex={i === index ? 0 : -1}>
+                  {s.cta}
+                </a>
+                <a
+                  href={wa("مرحبًا صله تون، أريد الاستفسار عن حلول السمع")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-ghost"
+                  tabIndex={i === index ? 0 : -1}
+                >
+                  <IconChat width={17} height={17} /> تحدث عبر واتساب
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="absolute bottom-0 start-0 flex items-center gap-px">
+          <button
+            onClick={() => go(index - 1)}
+            className="flex h-12 w-12 items-center justify-center bg-white/15 text-white backdrop-blur-sm transition hover:bg-blue"
+            aria-label="الشريحة السابقة"
+          >
+            <IconArrowBack width={18} height={18} />
+          </button>
+          <button
+            onClick={() => go(index + 1)}
+            className="flex h-12 w-12 items-center justify-center bg-white/15 text-white backdrop-blur-sm transition hover:bg-blue"
+            aria-label="الشريحة التالية"
+          >
+            <IconArrow width={18} height={18} />
+          </button>
+          <div className="flex h-12 items-center gap-3 bg-ink/70 px-5 text-[13px] font-bold text-white/80 tabular-nums" dir="ltr">
+            <span className="text-sky">{String(index + 1).padStart(2, "0")}</span>
+            <span className="h-px w-6 bg-white/40" />
+            <span>{String(ORIGINAL_SLIDES.length).padStart(2, "0")}</span>
+          </div>
+        </div>
+
+        <div className="absolute bottom-4 end-5 flex items-center gap-2.5">
+          {ORIGINAL_SLIDES.map((s, i) => (
+            <button
+              key={s.img}
+              onClick={() => go(i)}
+              aria-label={`الانتقال إلى الشريحة ${i + 1}`}
+              className={`h-2.5 w-2.5 rotate-45 transition-all ${i === index ? "scale-125 bg-sky" : "bg-white/55 hover:bg-white"}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================================
+   2. نموذج MediCenter الطبي الكلاسيكي (MediCenter Hero Model)
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -52,7 +235,7 @@ const MEDICENTER_SLIDES = [
   },
 ];
 
-function HeroModelMedicenter() {
+function HeroMedicenter() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -71,9 +254,8 @@ function HeroModelMedicenter() {
       className="relative bg-[#1a2e51] font-sans"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      aria-label="قسم الهيرو الطبي على نمط MediCenter"
+      aria-label="قسم الهيرو الطبي — نمط MediCenter"
     >
-      {/* 1. MAIN FULL-WIDTH SLIDER */}
       <div className="relative h-[460px] overflow-hidden bg-ink sm:h-[500px] lg:h-[540px]">
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
@@ -93,7 +275,6 @@ function HeroModelMedicenter() {
           </div>
         ))}
 
-        {/* Slide Content Overlay */}
         <div className="relative mx-auto flex h-full max-w-[1370px] flex-col justify-center px-4 sm:px-6 lg:px-8">
           <div className="max-w-[700px] text-white">
             <div className="inline-block bg-brand px-3.5 py-1 text-[13px] font-black uppercase tracking-wider text-ink">
@@ -133,7 +314,6 @@ function HeroModelMedicenter() {
           </div>
         </div>
 
-        {/* MediCenter Numbered Pagination */}
         <div className="absolute bottom-6 end-6 z-20 flex items-center gap-1.5 sm:end-12">
           {MEDICENTER_SLIDES.map((_, i) => (
             <button
@@ -168,9 +348,7 @@ function HeroModelMedicenter() {
         </div>
       </div>
 
-      {/* 2. MEDICENTER SIGNATURE 3 ACTION BOXES */}
       <div className="grid grid-cols-1 md:grid-cols-3">
-        {/* BOX 1: Emergency & Quick Contact */}
         <div className="group relative flex flex-col justify-between bg-[#27437f] p-8 text-white transition-colors hover:bg-[#203768] lg:p-10">
           <div>
             <div className="flex items-center justify-between border-b border-white/20 pb-4">
@@ -205,7 +383,6 @@ function HeroModelMedicenter() {
           </div>
         </div>
 
-        {/* BOX 2: Timetable & Guide */}
         <div className="group relative flex flex-col justify-between bg-[#0479be] p-8 text-white transition-colors hover:bg-[#0369a5] lg:p-10">
           <div>
             <div className="flex items-center justify-between border-b border-white/20 pb-4">
@@ -238,7 +415,6 @@ function HeroModelMedicenter() {
           </div>
         </div>
 
-        {/* BOX 3: Opening Hours & Schedule */}
         <div className="group relative flex flex-col justify-between bg-[#3156a3] p-8 text-white transition-colors hover:bg-[#29488a] lg:p-10">
           <div>
             <div className="flex items-center justify-between border-b border-white/20 pb-4">
@@ -281,332 +457,45 @@ function HeroModelMedicenter() {
 }
 
 /* =========================================================================
-   MODEL 5: Hybrid Masterpiece - Full-Width Dynamic Slider + Smart Pathways
-   (النموذج 5: الهجين المطور — سلايدر بصري تفاعلي + بطاقات المسارات الذكية الثلاثية)
+   MAIN HERO COMPONENT (MediCenter & Original Only)
 ========================================================================= */
-const HYBRID_SLIDES = [
-  {
-    img: IMG.hero1,
-    tag: "خبرة طبية متخصصة منذ 2014",
-    title: "استعد وضوح الصوت ومتعة التواصل",
-    highlight: "مع أحدث معينات السمع",
-    text: "نقدم حلولاً سمعية متكاملة تبدأ من الفحص الدقيق وحتى البرمجة المتطورة والصيانة المعتمدة في مختلف محافظات مصر.",
-    primaryCta: { text: "احجز استشارة عبر واتساب", href: wa("مرحبًا صله تون، أود حجز موعد استشارة وتقييم سمع"), isWa: true },
-    secondaryCta: { text: "اختبر سمعك في دقيقتين", href: "#hearing-test" },
-  },
-  {
-    img: IMG.hero2,
-    tag: "فحص استرشادي فوري",
-    title: "هل تلاحظ أي صعوبة في سماع",
-    highlight: "الحديث أو التلفاز؟",
-    text: "أجب عن 5 أسئلة قصيرة في دقيقتين لتحصل على تقييم فوري يوضح لك الخطوة المناسبة دون أي التزام.",
-    primaryCta: { text: "ابدأ اختبار السمع الآن", href: "#hearing-test", isWa: false },
-    secondaryCta: { text: "تحدث مع متخصص", href: wa("مرحبًا صله تون، لدي استفسار عن نتائج فحص السمع"), isWa: true },
-  },
-  {
-    img: IMG.hero3,
-    tag: "خدمة ما بعد البيع والصيانة",
-    title: "صيانة معتمدة وبطاريات أصلية",
-    highlight: "تصلك أينما كنت",
-    text: "فحص دقيق للأعطال، ضبط وبرمجة بأحدث الأجهزة، وبطاريات أصلية لكافة المقاسات مع خدمة التوصيل السريع.",
-    primaryCta: { text: "اطلب صيانة أو بطاريات", href: "#maintenance", isWa: false },
-    secondaryCta: { text: "استفسار سريع عبر واتساب", href: wa("مرحبًا صله تون، أريد طلب صيانة/بطاريات"), isWa: true },
-  },
-  {
-    img: IMG.hero4,
-    tag: "أحدث التقنيات 2026",
-    title: "سماعات مخفية وذكية تتصل",
-    highlight: "بالموبايل والتلفاز مباشرة",
-    text: "استكشف تشكيلة واسعة من أشهر العلامات التجارية العالمية (BTE, RIC, ITE) المصممة لتمنحك أقصى درجات الراحة.",
-    primaryCta: { text: "افتح مساعد اختيار السماعة", href: "#hearing-finder", isWa: false },
-    secondaryCta: { text: "اسأل عن العروض المتاحة", href: "#offers", isWa: false },
-  },
-];
-
-const HYBRID_GATEWAYS = [
-  {
-    Ico: IconEar,
-    badge: "فحص استرشادي في دقيقتين",
-    title: "اختبار السمع الأونلاين",
-    desc: "أجب عن 5 أسئلة سريعة لمعرفة مستوى السمع وتحديد ما إذا كنت بحاجة لتقييم متخصص.",
-    cta: "ابدأ الاختبار الآن",
-    href: "#hearing-test",
-    popular: false,
-  },
-  {
-    Ico: IconCalendarCheck,
-    badge: "دليل الأنواع والمساعد الذكي",
-    title: "مساعد اختيار السماعة",
-    desc: "تعرف على الفئات (خلف الأذن BTE، داخل القناة RIC، المخفية ITE) واختر الأنسب لك.",
-    cta: "استكشف السماعات المناسبة",
-    href: "#hearing-finder",
-    popular: true,
-  },
-  {
-    Ico: IconWrench,
-    badge: "خدمة سريعة في كل المحافظات",
-    title: "الصيانة والبطاريات الأصلية",
-    desc: "طلب فحص وبرمجة السماعات، أو طلب بطاريات مقاسات (10, 312, 13, 675) فوراً.",
-    cta: "اطلب صيانة أو بطاريات",
-    href: "#maintenance",
-    popular: false,
-  },
-];
-
-function HeroModel5() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const go = useCallback((next: number) => setIndex((next + HYBRID_SLIDES.length) % HYBRID_SLIDES.length), []);
-
-  useEffect(() => {
-    if (paused) return;
-    const id = window.setInterval(() => setIndex((i) => (i + 1) % HYBRID_SLIDES.length), 6500);
-    return () => window.clearInterval(id);
-  }, [paused]);
-
-  const current = HYBRID_SLIDES[index];
-
-  return (
-    <section
-      className="relative overflow-hidden bg-navy text-white"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      aria-label="الواجهة الرئيسية لصوت وسماعات صله تون"
-    >
-      <div className="relative min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]">
-        {HYBRID_SLIDES.map((s, i) => (
-          <div
-            key={s.img}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              i === index ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src={s.img}
-              alt=""
-              className="h-full w-full object-cover"
-              loading={i === 0 ? "eager" : "lazy"}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/85 to-navy/60 lg:bg-gradient-to-r lg:from-navy/95 lg:via-navy/80 lg:to-transparent" />
-            <div className="absolute inset-0 bg-navy/40" />
-          </div>
-        ))}
-
-        <div className="relative mx-auto flex max-w-[1370px] flex-col justify-center px-4 pb-16 pt-12 sm:px-6 lg:px-8 lg:pb-20 lg:pt-16">
-          <div className="max-w-[720px]">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[13px] font-bold text-sky backdrop-blur-md">
-              <IconShield width={15} height={15} /> {current.tag}
-            </div>
-
-            <h1 className="mt-4 text-[clamp(28px,4.3vw,50px)] font-black leading-[1.3] text-white">
-              {current.title} <br className="hidden sm:inline" />
-              <span className="text-sky">{current.highlight}</span>
-            </h1>
-
-            <p className="mt-4 max-w-[580px] text-[16px] leading-[1.9] text-white/90">
-              {current.text}
-            </p>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3.5">
-              <a
-                href={current.primaryCta.href}
-                target={current.primaryCta.isWa ? "_blank" : undefined}
-                rel={current.primaryCta.isWa ? "noopener noreferrer" : undefined}
-                className="btn btn-brand shadow-lg shadow-brand/30"
-              >
-                {current.primaryCta.isWa && <IconChat width={18} height={18} />}
-                {current.primaryCta.text}
-              </a>
-              <a
-                href={current.secondaryCta.href}
-                target={current.secondaryCta.isWa ? "_blank" : undefined}
-                rel={current.secondaryCta.isWa ? "noopener noreferrer" : undefined}
-                className="btn btn-ghost"
-              >
-                {current.secondaryCta.isWa && <IconChat width={18} height={18} />}
-                {current.secondaryCta.text}
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-8 flex items-center justify-between border-t border-white/15 pt-5 sm:mt-10">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={() => go(index - 1)}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white backdrop-blur-sm transition hover:bg-brand hover:text-ink"
-                  aria-label="الشريحة السابقة"
-                >
-                  <IconArrowBack width={17} height={17} />
-                </button>
-                <button
-                  onClick={() => go(index + 1)}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white backdrop-blur-sm transition hover:bg-brand hover:text-ink"
-                  aria-label="الشريحة التالية"
-                >
-                  <IconArrow width={17} height={17} />
-                </button>
-              </div>
-
-              <div className="flex items-center gap-2 rounded-lg bg-navy-dark/80 px-3.5 py-2 text-[13px] font-bold tabular-nums" dir="ltr">
-                <span className="text-sky">{String(index + 1).padStart(2, "0")}</span>
-                <span className="h-px w-4 bg-white/40" />
-                <span className="text-white/70">{String(HYBRID_SLIDES.length).padStart(2, "0")}</span>
-              </div>
-            </div>
-
-            <div className="hidden items-center gap-3 md:flex">
-              <span className="text-[13px] text-white/70">للحجز والاستفسار المباشر:</span>
-              <a
-                href={`tel:${PHONE_TEL}`}
-                dir="ltr"
-                className="flex items-center gap-2 rounded-lg bg-white/15 px-3.5 py-1.5 text-[15px] font-black text-sky transition hover:bg-white/25 hover:text-white"
-              >
-                <IconPhone width={15} height={15} /> {PHONE_DISPLAY}
-              </a>
-            </div>
-
-            <div className="flex items-center gap-2">
-              {HYBRID_SLIDES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => go(i)}
-                  aria-label={`انتقال للشريحة ${i + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === index ? "w-8 bg-brand" : "w-2 bg-white/40 hover:bg-white/70"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="relative z-10 -mt-6 bg-gradient-to-b from-transparent via-[#1c3563] to-navy-dark px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pb-16">
-        <div className="mx-auto max-w-[1370px]">
-          <div className="grid gap-5 md:grid-cols-3">
-            {HYBRID_GATEWAYS.map((g) => (
-              <div
-                key={g.title}
-                className={`group relative flex flex-col rounded-2xl border p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl ${
-                  g.popular
-                    ? "border-brand bg-white text-ink shadow-[0_15px_40px_rgba(66,179,229,0.25)]"
-                    : "border-white/15 bg-navy-dark/90 text-white hover:border-white/35 hover:bg-navy-dark"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span
-                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${
-                      g.popular
-                        ? "bg-navy text-sky"
-                        : "bg-white/10 text-sky group-hover:bg-brand group-hover:text-ink"
-                    }`}
-                  >
-                    <g.Ico width={24} height={24} />
-                  </span>
-                  <span
-                    className={`rounded-full px-3 py-1 text-[11.5px] font-bold ${
-                      g.popular ? "bg-brand/20 text-navy" : "bg-white/10 text-sky"
-                    }`}
-                  >
-                    {g.badge}
-                  </span>
-                </div>
-
-                <h3 className={`mt-4 text-[20px] font-extrabold ${g.popular ? "text-ink" : "text-white"}`}>
-                  {g.title}
-                </h3>
-
-                <p className={`mt-2 text-[14px] leading-[1.8] ${g.popular ? "text-body" : "text-white/75"}`}>
-                  {g.desc}
-                </p>
-
-                <div className="mt-auto pt-5">
-                  <a
-                    href={g.href}
-                    className={`flex w-full items-center justify-center gap-2 rounded-lg py-3 text-[14.5px] font-bold transition-all ${
-                      g.popular
-                        ? "btn-brand shadow-sm"
-                        : "border border-white/20 bg-white/10 text-white hover:bg-white hover:text-navy"
-                    }`}
-                  >
-                    {g.cta} <IconArrow width={15} height={15} />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/5 p-4 text-[13.5px]">
-            <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand/20 text-sky">
-                <IconClock width={16} height={16} />
-              </span>
-              <span className="font-semibold text-white/90">
-                فريق الدعم الفني والاستشارات الطبية متواجد يومياً لمساعدتك عبر واتساب والهاتف.
-              </span>
-            </div>
-            <a
-              href={wa("مرحبًا صله تون، أود استشارة أخصائي السمع الآن")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-bold text-sky transition hover:text-white"
-            >
-              <IconChat width={16} height={16} /> ابدأ محادثة مباشرة الآن &larr;
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* =========================================================================
-   MAIN HERO EXPORT WITH VARIANT SELECTOR
-========================================================================= */
-const VARIANTS = [
-  { id: 6, name: "نموذج MediCenter (المطابق تماماً للرابط)", desc: "سلايدر كامل مع 3 صناديق كلاسيكية للخدمات ومواعيد العمل" },
-  { id: 5, name: "نموذج 5: الهجين المطور (سلايدر + مسارات)", desc: "سلايدر تفاعلي مع كروت المسارات" },
-  { id: 1, name: "نموذج 1: السلايدر التفاعلي المطور", desc: "سلايدر حركي مع بطاقات سريعة" },
-  { id: 2, name: "نموذج 2: الواجهة الطبية والتحويل المزدوج", desc: "تصميم طبي فخم مع بطاقة ثقة" },
-  { id: 3, name: "نموذج 3: المسارات الذكية الثلاثية", desc: "3 بوابات تفاعلية لتوجيه الزائر" },
-];
-
 export default function Hero() {
-  const [activeModel, setActiveModel] = useState(6); // MediCenter model is default!
+  const [model, setModel] = useState<"medicenter" | "original">("medicenter");
 
   return (
     <div>
-      <div className="border-b border-navy-dark bg-[#142442] px-4 py-2.5 text-white">
+      <div className="border-b border-navy-dark bg-[#13223f] px-4 py-2.5 text-white">
         <div className="mx-auto flex max-w-[1370px] flex-wrap items-center justify-between gap-3 text-[13px] lg:px-4">
           <div className="flex items-center gap-2">
             <span className="flex h-2.5 w-2.5 rounded-full bg-brand animate-pulse" />
-            <span className="font-bold text-sky">معاينة نماذج قسم الهيرو (ميدي سنتر + النماذج الأخرى):</span>
+            <span className="font-bold text-sky">اختر تصميم الهيرو المفضل:</span>
           </div>
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            {VARIANTS.map((v) => (
-              <button
-                key={v.id}
-                onClick={() => setActiveModel(v.id)}
-                className={`rounded-md px-3 py-1.5 text-[12.5px] font-bold transition-all ${
-                  activeModel === v.id
-                    ? "bg-brand text-ink shadow-sm ring-2 ring-white/40"
-                    : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white"
-                }`}
-              >
-                {v.name.split("(")[0].trim()}
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setModel("medicenter")}
+              className={`rounded-md px-3.5 py-1.5 text-[13px] font-bold transition-all ${
+                model === "medicenter"
+                  ? "bg-brand text-ink shadow-md ring-2 ring-white/50"
+                  : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white"
+              }`}
+            >
+              🏥 نموذج MediCenter الطبي
+            </button>
+            <button
+              onClick={() => setModel("original")}
+              className={`rounded-md px-3.5 py-1.5 text-[13px] font-bold transition-all ${
+                model === "original"
+                  ? "bg-brand text-ink shadow-md ring-2 ring-white/50"
+                  : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white"
+              }`}
+            >
+              ✨ النموذج الأصلي (صله تون)
+            </button>
           </div>
         </div>
       </div>
 
-      {activeModel === 6 && <HeroModelMedicenter />}
-      {activeModel === 5 && <HeroModel5 />}
-      {activeModel === 1 && <HeroModel1 />}
-      {activeModel === 2 && <HeroModel2 />}
-      {activeModel === 3 && <HeroModel3 />}
+      {model === "medicenter" ? <HeroModelMedicenter /> : <HeroOriginal />}
     </div>
   );
 }
