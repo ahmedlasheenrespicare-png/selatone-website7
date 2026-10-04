@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahmedlasheenrespicare-png.github.io/selatone-website7/sitemap.xml
