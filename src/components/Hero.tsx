@@ -201,11 +201,10 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter الطبي الكلاسيكي (1:1 MediCenter Centered Boxes Replica)
+   2. نموذج MediCenter الطبي الكلاسيكي (MediCenter Full-Width Tabs Replica)
+   - Slide tabs (01, 02, 03) span the FULL width of the hero from edge to edge
+   - 3 Bottom Home Boxes centered with margins (< Hero full width)
    - Matches the total height of HeroOriginal (min-h-[580px])
-   - Full-width hero background and slider
-   - 3 Signature Home Boxes centered inside with margins on both sides (< Hero width)
-   - Exact 3-color palette: Light Blue (#42B3E5) | Blue (#0384CE) | Dark Blue (#3156A3)
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -265,8 +264,8 @@ function HeroModelMedicenter() {
       onMouseLeave={() => setPaused(false)}
       aria-label="قسم الهيرو الطبي — نمط MediCenter الأصلي"
     >
-      {/* 1. FULL-WIDTH SLIDER (Proportioned to match Original Hero total height) */}
-      <div className="relative w-full h-[380px] sm:h-[400px] lg:h-[390px] overflow-hidden bg-[#13223f]">
+      {/* 1. FULL-WIDTH SLIDER */}
+      <div className="relative w-full h-[390px] sm:h-[410px] lg:h-[400px] overflow-hidden bg-[#13223f]">
         {/* Background Slide Images with Crossfade */}
         {MEDICENTER_SLIDES.map((s, i) => (
           <div
@@ -288,7 +287,7 @@ function HeroModelMedicenter() {
         ))}
 
         {/* Slide Content (Text Box aligned with website container) */}
-        <div className="relative z-20 mx-auto flex h-full max-w-[1370px] flex-col justify-center px-4 sm:px-6 lg:px-8 pb-10">
+        <div className="relative z-20 mx-auto flex h-full max-w-[1370px] flex-col justify-center px-4 sm:px-6 lg:px-8 pb-12">
           <div className="max-w-[700px]">
             {/* Tag Badge */}
             <div className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[11.5px] font-black tracking-wider text-white shadow-sm uppercase">
@@ -334,51 +333,32 @@ function HeroModelMedicenter() {
           </div>
         </div>
 
-        {/* 1:1 MediCenter Numbered Navigation Bar (Attached to Slider Bottom) */}
-        <div className="absolute bottom-0 inset-x-0 z-30">
-          {/* Top Hairline Border */}
-          <div className="h-[1px] w-full bg-white/25" />
-
-          <div className="mx-auto flex max-w-[1370px] items-center justify-between px-4 sm:px-6 lg:px-8">
-            {/* Number Tabs (01, 02, 03) */}
-            <div className="flex items-center">
-              {MEDICENTER_SLIDES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => go(i)}
-                  aria-label={`الشريحة ${i + 1}`}
-                  className={`group relative flex h-9 w-12 items-center justify-center text-[13px] font-black transition-all ${
-                    i === index
-                      ? "text-white bg-white/20"
-                      : "text-white/70 hover:text-white hover:bg-white/10"
-                  }`}
-                >
-                  {/* Active highlight top bar */}
-                  {i === index && (
-                    <span className="absolute top-0 inset-x-0 h-[2.5px] bg-[#42B3E5]" />
-                  )}
+        {/* FULL-WIDTH NUMBERED NAVIGATION TABS (01, 02, 03 SPANNING 100% OF THE HERO WIDTH) */}
+        <div className="absolute bottom-0 inset-x-0 z-30 w-full bg-black/40 backdrop-blur-xs border-t border-white/20">
+          <div className="grid grid-cols-3 w-full">
+            {MEDICENTER_SLIDES.map((s, i) => (
+              <button
+                key={i}
+                onClick={() => go(i)}
+                aria-label={`الانتقال إلى الشريحة ${i + 1}`}
+                className={`group relative flex items-center justify-center sm:justify-start gap-2.5 px-3 sm:px-6 py-2.5 text-right transition-all border-e border-white/15 last:border-e-0 ${
+                  i === index
+                    ? "bg-white/20 text-white"
+                    : "text-white/75 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                {/* Active indicator bar spanning the full width of the tab */}
+                {i === index && (
+                  <span className="absolute top-0 inset-x-0 h-[3px] bg-[#42B3E5]" />
+                )}
+                <span className="font-mono text-[15px] sm:text-[18px] font-black text-[#42B3E5]">
                   0{i + 1}
-                </button>
-              ))}
-            </div>
-
-            {/* Arrows */}
-            <div className="flex items-center gap-1 py-1">
-              <button
-                onClick={() => go(index - 1)}
-                className="flex h-7 w-7 items-center justify-center bg-black/35 text-white transition hover:bg-[#42B3E5]"
-                aria-label="السابق"
-              >
-                <IconArrowBack width={14} height={14} />
+                </span>
+                <span className="hidden sm:inline-block text-[13px] font-bold truncate">
+                  {s.titleLine1}
+                </span>
               </button>
-              <button
-                onClick={() => go(index + 1)}
-                className="flex h-7 w-7 items-center justify-center bg-black/35 text-white transition hover:bg-[#42B3E5]"
-                aria-label="التالي"
-              >
-                <IconArrow width={14} height={14} />
-              </button>
-            </div>
+            ))}
           </div>
         </div>
       </div>
