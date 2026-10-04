@@ -202,9 +202,9 @@ function HeroOriginal() {
 
 /* =========================================================================
    2. نموذج MediCenter: شريط الأرقام يطفو مباشرة فوق الكروت الثلاثة العائمة
-   - Section A: Spacious High-Aspect Hero Slider (h-[540px] to h-[680px])
+   - Section A: Spacious High-Aspect Hero Slider (h-[620px] to h-[750px])
    - Section B: Unified Floating Block (Numbers Bar on top + 3 Cards directly below)
-   - Same high elevation into the lower 1/3 of the Hero (-mt-24 to -mt-40)
+   - Maximum Elevated Floating Overlap (-mt-36 sm:-mt-52 lg:-mt-68)
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -260,10 +260,10 @@ function HeroModelMedicenter() {
   return (
     <div className="w-full font-sans selection:bg-[#42B3E5] selection:text-white bg-white">
       {/* =========================================================================
-         SECTION A: HERO SLIDER STAGE (Spacious upper area for content)
+         SECTION A: HERO SLIDER STAGE (Extra spacious upper area for content)
       ========================================================================= */}
       <section
-        className="relative w-full overflow-hidden bg-[#0c1628] h-[540px] sm:h-[600px] lg:h-[680px] flex items-center"
+        className="relative w-full overflow-hidden bg-[#0c1628] min-h-[580px] sm:min-h-[660px] lg:min-h-[740px] flex items-start pt-10 sm:pt-14 lg:pt-16"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         aria-label="سلايدر صله تون الطبي"
@@ -283,13 +283,13 @@ function HeroModelMedicenter() {
               loading={i === 0 ? "eager" : "lazy"}
             />
             {/* Scrim overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0c1628]/95 via-[#0c1628]/65 to-[#0c1628]/35" />
-            <div className="absolute inset-0 bg-[#0c1628]/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0c1628]/95 via-[#0c1628]/70 to-[#0c1628]/35" />
+            <div className="absolute inset-0 bg-[#0c1628]/25" />
           </div>
         ))}
 
-        {/* Foreground Slider Content */}
-        <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-6 sm:px-10 lg:px-14 pb-28 sm:pb-36 lg:pb-44">
+        {/* Foreground Slider Content (Padded high so floating block never collides) */}
+        <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-start px-6 sm:px-10 lg:px-14 pb-48 sm:pb-60 lg:pb-72">
           <div className="max-w-[720px]">
             {/* Tag Badge */}
             <span className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[11px] sm:text-[12px] font-black tracking-wider text-white shadow-md uppercase">
@@ -351,11 +351,11 @@ function HeroModelMedicenter() {
       </section>
 
       {/* =========================================================================
-         SECTION B: UNIFIED FLOATING UNIT (Interactive Numbers Bar Floating Directly on Top of the 3 Cards)
-         Maintaining the exact same high elevation (-mt-24 sm:-mt-32 lg:-mt-40)
+         SECTION B: UNIFIED FLOATING UNIT (Maximum Elevated Floating Overlap)
+         Elevated to the maximum possible extent (-mt-36 sm:-mt-52 lg:-mt-68)
       ========================================================================= */}
-      <section className="relative z-30 -mt-24 sm:-mt-32 lg:-mt-40 px-3 sm:px-6 lg:px-12 pb-10 sm:pb-14 bg-transparent">
-        <div className="mx-auto max-w-[1240px] shadow-[0_25px_60px_rgba(0,0,0,0.28)] rounded-md overflow-hidden ring-1 ring-black/5 bg-white">
+      <section className="relative z-30 -mt-36 sm:-mt-52 lg:-mt-68 px-3 sm:px-6 lg:px-12 pb-10 sm:pb-14 bg-transparent">
+        <div className="mx-auto max-w-[1240px] shadow-[0_30px_90px_rgba(0,0,0,0.38),0_10px_30px_rgba(0,0,0,0.22)] rounded-md overflow-hidden ring-1 ring-black/10 bg-white">
           {/* Top Interactive Numbers Tabs (Floating directly on top of the 3 Cards) */}
           <div className="grid grid-cols-3 w-full bg-white border-b border-gray-200">
             {MEDICENTER_SLIDES.map((s, i) => (
@@ -363,20 +363,20 @@ function HeroModelMedicenter() {
                 key={i}
                 onClick={() => go(i)}
                 aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-                className={`group relative flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-6 py-2.5 sm:py-3.5 text-right transition-all border-e border-gray-200 last:border-e-0 ${
+                className={`group relative flex items-center justify-center sm:justify-start gap-2.5 px-2 sm:px-6 py-3 sm:py-4 text-right transition-all border-e border-gray-200 last:border-e-0 ${
                   i === index
-                    ? "bg-sky-50/70 text-[#111e38]"
+                    ? "bg-sky-50/80 text-[#111e38]"
                     : "bg-white text-gray-600 hover:text-[#0384CE] hover:bg-gray-50/80"
                 }`}
               >
                 {/* Active indicator bar */}
                 {i === index && (
-                  <span className="absolute top-0 inset-x-0 h-[3px] bg-[#42B3E5]" />
+                  <span className="absolute top-0 inset-x-0 h-[3.5px] bg-[#42B3E5]" />
                 )}
-                <span className="font-mono text-[12px] sm:text-[14px] font-black text-[#42B3E5] tracking-tighter">
+                <span className="font-mono text-[13px] sm:text-[15px] font-black text-[#42B3E5] tracking-tighter">
                   0{i + 1}
                 </span>
-                <span className="hidden sm:inline-block text-[11.5px] sm:text-[13px] font-bold truncate text-[#111e38] tracking-tight">
+                <span className="hidden sm:inline-block text-[12px] sm:text-[13.5px] font-extrabold truncate text-[#111e38] tracking-tight">
                   {s.titleLine1}
                 </span>
               </button>
