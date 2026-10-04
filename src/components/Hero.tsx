@@ -576,9 +576,296 @@ function HeroModel4() {
 }
 
 /* =========================================================================
+   MODEL 5: Hybrid Masterpiece - Full-Width Dynamic Slider + Smart Pathways
+   (النموذج 5: الهجين المطور — سلايدر بصري تفاعلي + بطاقات المسارات الذكية الثلاثية)
+========================================================================= */
+const HYBRID_SLIDES = [
+  {
+    img: IMG.hero1,
+    tag: "خبرة طبية متخصصة منذ 2014",
+    title: "استعد وضوح الصوت ومتعة التواصل",
+    highlight: "مع أحدث معينات السمع",
+    text: "نقدم حلولاً سمعية متكاملة تبدأ من الفحص الدقيق وحتى البرمجة المتطورة والصيانة المعتمدة في مختلف محافظات مصر.",
+    primaryCta: { text: "احجز استشارة عبر واتساب", href: wa("مرحبًا صله تون، أود حجز موعد استشارة وتقييم سمع"), isWa: true },
+    secondaryCta: { text: "اختبر سمعك في دقيقتين", href: "#hearing-test" },
+  },
+  {
+    img: IMG.hero2,
+    tag: "فحص استرشادي فوري",
+    title: "هل تلاحظ أي صعوبة في سماع",
+    highlight: "الحديث أو التلفاز؟",
+    text: "أجب عن 5 أسئلة قصيرة في دقيقتين لتحصل على تقييم فوري يوضح لك الخطوة المناسبة دون أي التزام.",
+    primaryCta: { text: "ابدأ اختبار السمع الآن", href: "#hearing-test", isWa: false },
+    secondaryCta: { text: "تحدث مع متخصص", href: wa("مرحبًا صله تون، لدي استفسار عن نتائج فحص السمع"), isWa: true },
+  },
+  {
+    img: IMG.hero3,
+    tag: "خدمة ما بعد البيع والصيانة",
+    title: "صيانة معتمدة وبطاريات أصلية",
+    highlight: "تصلك أينما كنت",
+    text: "فحص دقيق للأعطال، ضبط وبرمجة بأحدث الأجهزة، وبطاريات أصلية لكافة المقاسات مع خدمة التوصيل السريع.",
+    primaryCta: { text: "اطلب صيانة أو بطاريات", href: "#maintenance", isWa: false },
+    secondaryCta: { text: "استفسار سريع عبر واتساب", href: wa("مرحبًا صله تون، أريد طلب صيانة/بطاريات"), isWa: true },
+  },
+  {
+    img: IMG.hero4,
+    tag: "أحدث التقنيات 2026",
+    title: "سماعات مخفية وذكية تتصل",
+    highlight: "بالموبايل والتلفاز مباشرة",
+    text: "استكشف تشكيلة واسعة من أشهر العلامات التجارية العالمية (BTE, RIC, ITE) المصممة لتمنحك أقصى درجات الراحة.",
+    primaryCta: { text: "افتح مساعد اختيار السماعة", href: "#hearing-finder", isWa: false },
+    secondaryCta: { text: "اسأل عن العروض المتاحة", href: "#offers", isWa: false },
+  },
+];
+
+const HYBRID_GATEWAYS = [
+  {
+    Ico: IconEar,
+    badge: "فحص استرشادي في دقيقتين",
+    title: "اختبار السمع الأونلاين",
+    desc: "أجب عن 5 أسئلة سريعة لمعرفة مستوى السمع وتحديد ما إذا كنت بحاجة لتقييم متخصص.",
+    cta: "ابدأ الاختبار الآن",
+    href: "#hearing-test",
+    color: "from-blue-600/20 to-blue-900/40",
+    border: "border-sky/40",
+  },
+  {
+    Ico: IconCalendarCheck,
+    badge: "دليل الأنواع والمساعد الذكي",
+    title: "مساعد اختيار السماعة",
+    desc: "تعرف على الفئات (خلف الأذن BTE، داخل القناة RIC، المخفية ITE) واختر الأنسب لك.",
+    cta: "استكشف السماعات المناسبة",
+    href: "#hearing-finder",
+    color: "from-sky-500/20 to-navy/60",
+    border: "border-brand",
+    popular: true,
+  },
+  {
+    Ico: IconWrench,
+    badge: "خدمة سريعة في كل المحافظات",
+    title: "الصيانة والبطاريات الأصلية",
+    desc: "طلب فحص وبرمجة السماعات، أو طلب بطاريات مقاسات (10, 312, 13, 675) فوراً.",
+    cta: "اطلب صيانة أو بطاريات",
+    href: "#maintenance",
+    color: "from-navy/50 to-navy-dark/70",
+    border: "border-white/20",
+  },
+];
+
+function HeroModel5() {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const go = useCallback((next: number) => setIndex((next + HYBRID_SLIDES.length) % HYBRID_SLIDES.length), []);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % HYBRID_SLIDES.length), 6500);
+    return () => window.clearInterval(id);
+  }, [paused]);
+
+  const current = HYBRID_SLIDES[index];
+
+  return (
+    <section
+      className="relative overflow-hidden bg-navy text-white"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      aria-label="الواجهة الرئيسية لصوت وسماعات صله تون"
+    >
+      <div className="relative min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]">
+        {HYBRID_SLIDES.map((s, i) => (
+          <div
+            key={s.img}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={s.img}
+              alt=""
+              className="h-full w-full object-cover"
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/85 to-navy/60 lg:bg-gradient-to-r lg:from-navy/95 lg:via-navy/80 lg:to-transparent" />
+            <div className="absolute inset-0 bg-navy/40" />
+          </div>
+        ))}
+
+        <div className="relative mx-auto flex max-w-[1370px] flex-col justify-center px-4 pb-16 pt-12 sm:px-6 lg:px-8 lg:pb-20 lg:pt-16">
+          <div className="max-w-[720px]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[13px] font-bold text-sky backdrop-blur-md">
+              <IconShield width={15} height={15} /> {current.tag}
+            </div>
+
+            <h1 className="mt-4 text-[clamp(28px,4.3vw,50px)] font-black leading-[1.3] text-white">
+              {current.title} <br className="hidden sm:inline" />
+              <span className="text-sky">{current.highlight}</span>
+            </h1>
+
+            <p className="mt-4 max-w-[580px] text-[16px] leading-[1.9] text-white/90">
+              {current.text}
+            </p>
+
+            <div className="mt-7 flex flex-wrap items-center gap-3.5">
+              <a
+                href={current.primaryCta.href}
+                target={current.primaryCta.isWa ? "_blank" : undefined}
+                rel={current.primaryCta.isWa ? "noopener noreferrer" : undefined}
+                className="btn btn-brand shadow-lg shadow-brand/30"
+              >
+                {current.primaryCta.isWa && <IconChat width={18} height={18} />}
+                {current.primaryCta.text}
+              </a>
+              <a
+                href={current.secondaryCta.href}
+                target={current.secondaryCta.isWa ? "_blank" : undefined}
+                rel={current.secondaryCta.isWa ? "noopener noreferrer" : undefined}
+                className="btn btn-ghost"
+              >
+                {current.secondaryCta.isWa && <IconChat width={18} height={18} />}
+                {current.secondaryCta.text}
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-8 flex items-center justify-between border-t border-white/15 pt-5 sm:mt-10">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => go(index - 1)}
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white backdrop-blur-sm transition hover:bg-brand hover:text-ink"
+                  aria-label="الشريحة السابقة"
+                >
+                  <IconArrowBack width={17} height={17} />
+                </button>
+                <button
+                  onClick={() => go(index + 1)}
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white backdrop-blur-sm transition hover:bg-brand hover:text-ink"
+                  aria-label="الشريحة التالية"
+                >
+                  <IconArrow width={17} height={17} />
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2 rounded-lg bg-navy-dark/80 px-3.5 py-2 text-[13px] font-bold tabular-nums" dir="ltr">
+                <span className="text-sky">{String(index + 1).padStart(2, "0")}</span>
+                <span className="h-px w-4 bg-white/40" />
+                <span className="text-white/70">{String(HYBRID_SLIDES.length).padStart(2, "0")}</span>
+              </div>
+            </div>
+
+            <div className="hidden items-center gap-3 md:flex">
+              <span className="text-[13px] text-white/70">للحجز والاستفسار المباشر:</span>
+              <a
+                href={`tel:${PHONE_TEL}`}
+                dir="ltr"
+                className="flex items-center gap-2 rounded-lg bg-white/15 px-3.5 py-1.5 text-[15px] font-black text-sky transition hover:bg-white/25 hover:text-white"
+              >
+                <IconPhone width={15} height={15} /> {PHONE_DISPLAY}
+              </a>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {HYBRID_SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => go(i)}
+                  aria-label={`انتقال للشريحة ${i + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === index ? "w-8 bg-brand" : "w-2 bg-white/40 hover:bg-white/70"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 -mt-6 bg-gradient-to-b from-transparent via-[#1c3563] to-navy-dark px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pb-16">
+        <div className="mx-auto max-w-[1370px]">
+          <div className="grid gap-5 md:grid-cols-3">
+            {HYBRID_GATEWAYS.map((g) => (
+              <div
+                key={g.title}
+                className={`group relative flex flex-col rounded-2xl border p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl ${
+                  g.popular
+                    ? "border-brand bg-white text-ink shadow-[0_15px_40px_rgba(66,179,229,0.25)]"
+                    : "border-white/15 bg-navy-dark/90 text-white hover:border-white/35 hover:bg-navy-dark"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${
+                      g.popular
+                        ? "bg-navy text-sky"
+                        : "bg-white/10 text-sky group-hover:bg-brand group-hover:text-ink"
+                    }`}
+                  >
+                    <g.Ico width={24} height={24} />
+                  </span>
+                  <span
+                    className={`rounded-full px-3 py-1 text-[11.5px] font-bold ${
+                      g.popular ? "bg-brand/20 text-navy" : "bg-white/10 text-sky"
+                    }`}
+                  >
+                    {g.badge}
+                  </span>
+                </div>
+
+                <h3 className={`mt-4 text-[20px] font-extrabold ${g.popular ? "text-ink" : "text-white"}`}>
+                  {g.title}
+                </h3>
+
+                <p className={`mt-2 text-[14px] leading-[1.8] ${g.popular ? "text-body" : "text-white/75"}`}>
+                  {g.desc}
+                </p>
+
+                <div className="mt-auto pt-5">
+                  <a
+                    href={g.href}
+                    className={`flex w-full items-center justify-center gap-2 rounded-lg py-3 text-[14.5px] font-bold transition-all ${
+                      g.popular
+                        ? "btn-brand shadow-sm"
+                        : "border border-white/20 bg-white/10 text-white hover:bg-white hover:text-navy"
+                    }`}
+                  >
+                    {g.cta} <IconArrow width={15} height={15} />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/5 p-4 text-[13.5px]">
+            <div className="flex items-center gap-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand/20 text-sky">
+                <IconClock width={16} height={16} />
+              </span>
+              <span className="font-semibold text-white/90">
+                فريق الدعم الفني والاستشارات الطبية متواجد يومياً لمساعدتك عبر واتساب والهاتف.
+              </span>
+            </div>
+            <a
+              href={wa("مرحبًا صله تون، أود استشارة أخصائي السمع الآن")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-bold text-sky transition hover:text-white"
+            >
+              <IconChat width={16} height={16} /> ابدأ محادثة مباشرة الآن &larr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================================
    MAIN HERO EXPORT WITH VARIANT SELECTOR
 ========================================================================= */
 const VARIANTS = [
+  { id: 5, name: "نموذج 5: الهجين المطور (سلايدر + مسارات 1 و 3)", desc: "سلايدر بصري تفاعلي مع كروت المسارات الثلاثية" },
   { id: 1, name: "نموذج 1: السلايدر التفاعلي المطور", desc: "سلايدر حركي مع بطاقات سريعة" },
   { id: 2, name: "نموذج 2: الواجهة الطبية والتحويل المزدوج", desc: "تصميم طبي فخم مع بطاقة ثقة" },
   { id: 3, name: "نموذج 3: المسارات الذكية الثلاثية", desc: "3 بوابات تفاعلية لتوجيه الزائر" },
@@ -586,7 +873,7 @@ const VARIANTS = [
 ];
 
 export default function Hero() {
-  const [activeModel, setActiveModel] = useState(2); // Model 2 as the default modern medical flagship
+  const [activeModel, setActiveModel] = useState(5); // Model 5 (Hybrid of 1 and 3) is active by default!
 
   return (
     <div>
@@ -614,6 +901,7 @@ export default function Hero() {
         </div>
       </div>
 
+      {activeModel === 5 && <HeroModel5 />}
       {activeModel === 1 && <HeroModel1 />}
       {activeModel === 2 && <HeroModel2 />}
       {activeModel === 3 && <HeroModel3 />}
