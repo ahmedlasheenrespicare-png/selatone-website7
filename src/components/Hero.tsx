@@ -201,10 +201,10 @@ function HeroOriginal() {
 }
 
 /* =========================================================================
-   2. نموذج MediCenter: قسم الكروت الثلاثة عائم على قسم الهيرو
-   - Section A: Spacious Hero Slider Stage (with room for floating cards)
+   2. نموذج MediCenter: قسم الكروت يطفو بعلو أكبر في الثلث السفلي للهيرو
+   - Section A: Spacious High-Aspect Hero Slider (h-[540px] to h-[680px])
    - Section B: Connected Numbers Bar
-   - Section C: Signature 3 Home Boxes floating over the Hero with negative margin
+   - Section C: 3 Home Boxes floating high up into the lower 1/3 (-mt-24 to -mt-40)
 ========================================================================= */
 const MEDICENTER_SLIDES = [
   {
@@ -260,10 +260,10 @@ function HeroModelMedicenter() {
   return (
     <div className="w-full font-sans selection:bg-[#42B3E5] selection:text-white bg-white">
       {/* =========================================================================
-         SECTION A: HERO SLIDER STAGE (Extra bottom padding to allow floating cards)
+         SECTION A: HERO SLIDER STAGE (Spacious upper 2/3 for content)
       ========================================================================= */}
       <section
-        className="relative w-full overflow-hidden bg-[#0c1628] h-[500px] sm:h-[560px] lg:h-[620px] flex items-center"
+        className="relative w-full overflow-hidden bg-[#0c1628] h-[540px] sm:h-[600px] lg:h-[680px] flex items-center"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         aria-label="سلايدر صله تون الطبي"
@@ -288,8 +288,8 @@ function HeroModelMedicenter() {
           </div>
         ))}
 
-        {/* Foreground Slider Content */}
-        <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-6 sm:px-10 lg:px-14 pb-12 sm:pb-16">
+        {/* Foreground Slider Content (Comfortably situated in upper 2/3) */}
+        <div className="relative z-10 mx-auto flex w-full max-w-[1370px] flex-col justify-center px-6 sm:px-10 lg:px-14 pb-28 sm:pb-36 lg:pb-44">
           <div className="max-w-[720px]">
             {/* Tag Badge */}
             <span className="inline-block bg-[#42B3E5] px-3.5 py-1 text-[11px] sm:text-[12px] font-black tracking-wider text-white shadow-md uppercase">
@@ -382,10 +382,10 @@ function HeroModelMedicenter() {
       </div>
 
       {/* =========================================================================
-         SECTION C: THE 3 HOME BOXES FLOATING OVER THE HERO (-mt-10 sm:-mt-14 lg:-mt-16)
+         SECTION C: THE 3 HOME BOXES FLOATING HIGHER UP INTO THE LOWER 1/3 (-mt-24 sm:-mt-32 lg:-mt-40)
       ========================================================================= */}
-      <section className="relative z-30 -mt-10 sm:-mt-14 lg:-mt-16 px-3 sm:px-6 lg:px-12 pb-8 sm:pb-12 bg-transparent">
-        <div className="mx-auto max-w-[1240px] shadow-[0_20px_50px_rgba(0,0,0,0.22)] rounded-md overflow-hidden">
+      <section className="relative z-30 -mt-24 sm:-mt-32 lg:-mt-40 px-3 sm:px-6 lg:px-12 pb-10 sm:pb-14 bg-transparent">
+        <div className="mx-auto max-w-[1240px] shadow-[0_25px_60px_rgba(0,0,0,0.28)] rounded-md overflow-hidden ring-1 ring-black/5">
           {/* Responsive Grid: 1 column on Mobile, 3 columns on Tablet & Desktop */}
           <div className="grid grid-cols-1 md:grid-cols-3">
             {/* BOX 1: Light Blue (#42B3E5) — Emergency Case */}
