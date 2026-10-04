@@ -3,8 +3,21 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+function mount() {
+  const el = document.getElementById("root");
+  if (el) {
+    createRoot(el).render(
+      <StrictMode>
+        <App />
+      </StrictMode>
+    );
+  }
+}
+
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else {
+    mount();
+  }
+}
